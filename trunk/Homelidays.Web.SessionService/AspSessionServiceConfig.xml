@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Partitions>
+	<Partition>
+		<ConnectionString>Data Source=.\;Initial Catalog=tempdb;</ConnectionString>
+    <Login>sa</Login>
+    <Password>123456</Password>
+	</Partition>
+ </Partitions>

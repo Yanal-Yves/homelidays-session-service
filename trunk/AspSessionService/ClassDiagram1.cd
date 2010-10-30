@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Serialisation layer">
+    <Position X="1" Y="10.25" Height="0.306" Width="20.004" />
+  </Comment>
+  <Comment CommentText="Com interface, Session.Content collection managment and Cookie managment">
+    <Position X="1.04" Y="2.064" Height="0.399" Width="20.01" />
+  </Comment>
+  <Comment CommentText="Partition manager">
+    <Position X="1" Y="16" Height="0.306" Width="19.993" />
+  </Comment>
+  <Comment CommentText="Persistance">
+    <Position X="1" Y="20.12" Height="0.306" Width="20.016" />
+  </Comment>
+  <Comment CommentText="VCUE Layer (part of the Active Template Library)">
+    <Position X="11.454" Y="5.192" Height="0.31" Width="9.594" />
+  </Comment>
+  <Class Name="AspSessionPersistence">
+    <Position X="1" Y="20.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAEAAAAAAABAAAAAQAAAAAAQAAAgAAAAAAAAA=</HashCode>
+      <FileName>AspSessionPersistence.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Partition">
+    <Position X="1" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAQAAAAAAAAAAACEAAAAAAAQAAAABAAAAAAAgA=</HashCode>
+      <FileName>Partition.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AspSessionDeserializer">
+    <Position X="1" Y="10.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAYQIAACAAABAAAAAACAiABCAAABAAAACIUAAg=</HashCode>
+      <FileName>AspSessionDeserializer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AspSessionSerializer">
+    <Position X="4.25" Y="10.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAQAACABEAAEAAIAAAAAAAAAAAAAAAAAAAAQIAIAk=</HashCode>
+      <FileName>AspSessionSerializer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PartitionResolver">
+    <Position X="2.75" Y="16.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAgAgAAAAAAAABCAAAAIAAAAAAAAIAQEAAAAEAAAAAA=</HashCode>
+      <FileName>PartitionResolver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CAspSession">
+    <Position X="6.75" Y="2.75" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgQAgEEEQAAADABAAQAAAQAARAADAIBAAiQBoC0A=</HashCode>
+      <FileName>AspSession.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VCUE::CGenericDataHolder&lt;DataType, ThreadModel&gt;" Collapsed="true">
+    <Position X="11.5" Y="7.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VCUE_Collection.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VCUE::ICollectionOnSTLCopyImpl&lt;T, CollType, ItemType, CopyItem, EnumType, Holder&gt;" Collapsed="true">
+    <Position X="15" Y="7.5" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VCUE_Collection.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VCUE::GenericCopy&lt;DestinationType, SourceType&gt;" Collapsed="true">
+    <Position X="14.75" Y="6" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>VCUE_Copy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VCUE::GenericCopy&lt;BSTR&gt;" Collapsed="true">
+    <Position X="11.5" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>VCUE_Copy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VCUE::GenericCopy&lt;VARIANT, BSTR&gt;" Collapsed="true">
+    <Position X="16.25" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>VCUE_Copy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VCUE::GenericCopy&lt;BSTR, VARIANT&gt;" Collapsed="true">
+    <Position X="13.5" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>VCUE_Copy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VCUE::MapCopy&lt;MapType, DestinationType&gt;" Collapsed="true">
+    <Position X="11.5" Y="6" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>VCUE_Copy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="ContainerType" Collapsed="true">
+    <Position X="14.25" Y="4.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ContainerType.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Yacht.Web.SessionService.AspSessionNet">
+    <Position X="0.5" Y="9.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAEQAACAAICAkAAAACAAAAAAAAAIIAAABAQAA=</HashCode>
+      <FileName>AspSession.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Homelidays.Web.SessionService.AppSettingsManager">
+    <Position X="0.5" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAQAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAEgA=</HashCode>
+      <FileName>AppSettingsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Homelidays.Web.SessionService.SessionState">
+    <Position X="5.25" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAIACAgCAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SessionState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Homelidays.Web.SessionService.SessionService">
+    <Position X="0.5" Y="1.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACIAAAACAAAAAAAAEAAAAAAAAAAAAIAAAAgAAA=</HashCode>
+      <FileName>SessionService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Homelidays.Web.SessionService.SessionPage">
+    <Position X="5.25" Y="4.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAEAAAAAAAgAEAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SessionPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Homelidays.Web.SessionService.ISessionState">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISessionState.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,11 @@
+﻿Condition d'éxécution du test
+	- Vérifier que le débugage côté serveur et côté client sont désactivé dans IIS
+	- Vérifier que la session asp est désactivée
+	- iisreset avant le test
+	- Compilation en Release du composant COM
+	- Compilation en Release du LoadTester
+	- Ouvrir un navigateur et vider son cache
+	- Appeler la page une première fois avant le test et s'assurer que tout est OK
+	- Appeler la page une seconde fois et s'assurer que tout est OK
+	- Lancer le test
+	- Réduire la fenêtre du test
