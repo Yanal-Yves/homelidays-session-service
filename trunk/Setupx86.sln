@@ -18,6 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{A2
 		Licenses\MbUnit.txt = Licenses\MbUnit.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{CEB3611E-51C8-4519-BD2A-6D454F06D190}"
+	ProjectSection(SolutionItems) = preProject
+		Sql\01 Job.sql = Sql\01 Job.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Win32 = Release|Win32
@@ -34,5 +39,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A2719167-4796-43BF-B77E-D7A1A31819BA} = {39793233-E03A-4388-ACF1-1CFFA0068CB7}
+		{CEB3611E-51C8-4519-BD2A-6D454F06D190} = {39793233-E03A-4388-ACF1-1CFFA0068CB7}
 	EndGlobalSection
 EndGlobal

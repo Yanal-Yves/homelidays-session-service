@@ -51,6 +51,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{3A
 		Licenses\MbUnit.txt = Licenses\MbUnit.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{71C18180-971C-4DD6-9FB8-A52388F5649D}"
+	ProjectSection(SolutionItems) = preProject
+		Sql\01 Job.sql = Sql\01 Job.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -105,5 +110,6 @@ Global
 		{C43843FB-5CAE-425F-9FE6-4122DA5B8B5E} = {DC0608F8-7A03-4AB5-A0F2-0083EC6DBAAA}
 		{91CB9C44-CB30-4E84-92D7-362A39184F68} = {DC0608F8-7A03-4AB5-A0F2-0083EC6DBAAA}
 		{3A711A89-55C0-4807-BCF3-D22FB58A9FB6} = {0B190C14-FCFD-47D2-81AD-16866596C521}
+		{71C18180-971C-4DD6-9FB8-A52388F5649D} = {0B190C14-FCFD-47D2-81AD-16866596C521}
 	EndGlobalSection
 EndGlobal
