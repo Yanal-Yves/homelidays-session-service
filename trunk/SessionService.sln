@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Site", "Site", "{83CD26B8-2FD3-4761-8308-8BA4545A8405}"
 	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
 		TargetFramework = "3.5"
 		ProjectReferences = "{8C5345E8-C67B-4128-8C01-AD896ED8A764}|Homelidays.Web.SessionService.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Site"
@@ -40,8 +44,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		License.txt = License.txt
 		Notes.txt = Notes.txt
 	EndProjectSection
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{501BA1F9-4D75-4C90-BDAC-8D2CA7F1D5AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{3A711A89-55C0-4807-BCF3-D22FB58A9FB6}"
 	ProjectSection(SolutionItems) = preProject
@@ -94,10 +96,6 @@ Global
 		{91CB9C44-CB30-4E84-92D7-362A39184F68}.Debug|x64.Build.0 = Debug|Any CPU
 		{91CB9C44-CB30-4E84-92D7-362A39184F68}.Release|Win32.ActiveCfg = Release|Any CPU
 		{91CB9C44-CB30-4E84-92D7-362A39184F68}.Release|x64.ActiveCfg = Release|Any CPU
-		{501BA1F9-4D75-4C90-BDAC-8D2CA7F1D5AC}.Debug|Win32.ActiveCfg = Debug
-		{501BA1F9-4D75-4C90-BDAC-8D2CA7F1D5AC}.Debug|x64.ActiveCfg = Debug
-		{501BA1F9-4D75-4C90-BDAC-8D2CA7F1D5AC}.Release|Win32.ActiveCfg = Release
-		{501BA1F9-4D75-4C90-BDAC-8D2CA7F1D5AC}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
