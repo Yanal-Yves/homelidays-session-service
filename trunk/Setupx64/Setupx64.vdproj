@@ -21,14 +21,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4957F4D7C523436AB08B9B64D1BCDC05"
-        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_50A0D4F6CF75E0CF347A6399C39F30C7"
-        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
+        "MsmKey" = "8:_4F7A57AE84C64DB589973061A1CF5C99"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,32 +33,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_59C8612952204D5698BC586951EB605E"
-        "OwnerKey" = "8:_F3E05CDF785B4177A764B3AB11FAA141"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6E327DA984644F948F4B26F82F6E745C"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7043F8E3FC18E2C87ABB237C72545565"
-        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_807B79C10D9963318B9E3C5652F77A40"
-        "OwnerKey" = "8:_B6B53178126744EEA59159C8AC4B4A03"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_807B79C10D9963318B9E3C5652F77A40"
-        "OwnerKey" = "8:_1C4F5D20E2E24A51AAABE2A288EAF4AF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -87,20 +57,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_EDC59FB9E6FA4333B7E4BF6C92E9A67A"
-        "OwnerKey" = "8:_4957F4D7C523436AB08B9B64D1BCDC05"
+        "MsmKey" = "8:_E003EC31A72F7BE89463CA74FE13E559"
+        "OwnerKey" = "8:_1C4F5D20E2E24A51AAABE2A288EAF4AF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F3E05CDF785B4177A764B3AB11FAA141"
-        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
+        "MsmKey" = "8:_E003EC31A72F7BE89463CA74FE13E559"
+        "OwnerKey" = "8:_B6B53178126744EEA59159C8AC4B4A03"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_807B79C10D9963318B9E3C5652F77A40"
+        "OwnerKey" = "8:_B6B53178126744EEA59159C8AC4B4A03"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -112,7 +82,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B6B53178126744EEA59159C8AC4B4A03"
+        "OwnerKey" = "8:_E003EC31A72F7BE89463CA74FE13E559"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -230,10 +200,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_50A0D4F6CF75E0CF347A6399C39F30C7"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4F7A57AE84C64DB589973061A1CF5C99"
             {
-            "SourcePath" = "8:msado15.dll"
-            "TargetName" = "8:msado15.dll"
+            "SourcePath" = "8:..\\Site\\SessionService\\HomelidaysSessionServiceInit.asp"
+            "TargetName" = "8:HomelidaysSessionServiceInit.asp"
             "Tag" = "8:"
             "Folder" = "8:_F54AFEB3729A44EAAE61FA35A0762733"
             "Condition" = "8:"
@@ -246,8 +216,8 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_526BB2F76D54423B9E53630A36ED9077"
@@ -290,10 +260,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7043F8E3FC18E2C87ABB237C72545565"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DD4DAD93A1A043B380A52AA63686B6EA"
             {
-            "SourcePath" = "8:XmlLite.dll"
-            "TargetName" = "8:XmlLite.dll"
+            "SourcePath" = "8:..\\License.txt"
+            "TargetName" = "8:License.txt"
             "Tag" = "8:"
             "Folder" = "8:_F54AFEB3729A44EAAE61FA35A0762733"
             "Condition" = "8:"
@@ -305,19 +275,19 @@
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
-            "Register" = "3:4"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_807B79C10D9963318B9E3C5652F77A40"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E003EC31A72F7BE89463CA74FE13E559"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_807B79C10D9963318B9E3C5652F77A40"
+                    "_E003EC31A72F7BE89463CA74FE13E559"
                     {
                     "Name" = "8:log4net.dll"
                     "Attributes" = "3:512"
@@ -339,26 +309,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DD4DAD93A1A043B380A52AA63686B6EA"
-            {
-            "SourcePath" = "8:..\\License.txt"
-            "TargetName" = "8:License.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_F54AFEB3729A44EAAE61FA35A0762733"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -944,62 +894,6 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_4957F4D7C523436AB08B9B64D1BCDC05"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:policy_9_0_Microsoft_VC90_ATL_x86_x64.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_59C8612952204D5698BC586951EB605E"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:microsoft_vc90_crt_x86_x64.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:TRUE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_EDC59FB9E6FA4333B7E4BF6C92E9A67A"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:microsoft_vc90_atl_x86_x64.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_F3E05CDF785B4177A764B3AB11FAA141"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:policy_9_0_Microsoft_VC90_CRT_x86_x64.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:TRUE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
         }
         "ProjectOutput"
         {

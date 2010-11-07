@@ -21,26 +21,32 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_080C11D2024D412083DD873CE08466AD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6E327DA984644F948F4B26F82F6E745C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_807B79C10D9963318B9E3C5652F77A40"
-        "OwnerKey" = "8:_E4996F4E22F44D92942B8880E00742FE"
+        "MsmKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_807B79C10D9963318B9E3C5652F77A40"
+        "MsmKey" = "8:_D703880E3C7FB346685872BE39AF3E08"
         "OwnerKey" = "8:_022A8EBD3E88474DA5C8BCE362452903"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_D703880E3C7FB346685872BE39AF3E08"
+        "OwnerKey" = "8:_E4996F4E22F44D92942B8880E00742FE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -64,7 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_807B79C10D9963318B9E3C5652F77A40"
+        "OwnerKey" = "8:_E4996F4E22F44D92942B8880E00742FE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,7 +82,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E4996F4E22F44D92942B8880E00742FE"
+        "OwnerKey" = "8:_D703880E3C7FB346685872BE39AF3E08"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -194,6 +200,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_080C11D2024D412083DD873CE08466AD"
+            {
+            "SourcePath" = "8:..\\Site\\SessionService\\HomelidaysSessionServiceInit.asp"
+            "TargetName" = "8:HomelidaysSessionServiceInit.asp"
+            "Tag" = "8:"
+            "Folder" = "8:_F54AFEB3729A44EAAE61FA35A0762733"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6E327DA984644F948F4B26F82F6E745C"
             {
             "SourcePath" = "8:..\\AspSessionService\\Homelidays.ico"
@@ -214,14 +240,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_807B79C10D9963318B9E3C5652F77A40"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D703880E3C7FB346685872BE39AF3E08"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_807B79C10D9963318B9E3C5652F77A40"
+                    "_D703880E3C7FB346685872BE39AF3E08"
                     {
                     "Name" = "8:log4net.dll"
                     "Attributes" = "3:512"
