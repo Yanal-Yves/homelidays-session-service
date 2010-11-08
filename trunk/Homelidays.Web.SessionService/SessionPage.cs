@@ -47,7 +47,7 @@ namespace Homelidays.Web.SessionService
                     // TODO : que se passe-t-il si on est au unload ?
                     this.session = SessionService.InitializeSession(Context);
                     this.Unload += new EventHandler(this.SessionPageUnload);
-                    this.isSessionInitialized = true; 
+                    this.isSessionInitialized = true;
                 }
 
                 return this.session;
@@ -80,6 +80,95 @@ namespace Homelidays.Web.SessionService
                 SessionService.PersistSession(this.Context, this.session);
                 this.isSessionInitialized = false;
             }
+        }
+
+        /// <summary>
+        /// Parse a W3C formated string to a DateTime
+        /// </summary>
+        /// <param name="dateTimeStringW3C">W3C formated string</param>
+        /// <returns>The parsed datetime corresponding to the provided W3C formated string</returns>
+        private static DateTime ParseW3C(string dateTimeStringW3C)
+        {
+            int year = int.Parse(dateTimeStringW3C.Substring(0, 4));
+            int month = int.Parse(dateTimeStringW3C.Substring(5, 2));
+            int day = int.Parse(dateTimeStringW3C.Substring(8, 2));
+            int hour = int.Parse(dateTimeStringW3C.Substring(11, 2));
+            int minute = int.Parse(dateTimeStringW3C.Substring(14, 2));
+            DateTime date_time = new DateTime(year, month, day, hour, minute, 0);
+
+            return date_time;
+        }
+
+        /// <summary>
+        /// Rafraichissement de la date de dernier accès du cookie Yacht + rafraichissement de la date dans la BDD
+        /// Equivalent du bout de code dans le 010-Include/AspSessionService.asp
+        /// </summary>
+        private void RefreshCookieYachtLastTimeAccess()
+        {
+            if (Request.Cookies != null && Request.Cookies["Yacht"] != null)
+            {
+                string lastAccess = Request.Cookies["Yacht"]["LastAccessed"];
+
+                if (!string.IsNullOrEmpty(lastAccess))
+                {
+                    TimeSpan elapsedTimeSinceLastAccess = this.GetElapsedTimeSinceSessionLastAccess(lastAccess);
+
+                    // On récupère le timeout
+                    string time_out_str = Request.Cookies["Yacht"]["TimeOut"];
+
+                    if (!string.IsNullOrEmpty(time_out_str))
+                    {
+                        int time_out = int.Parse(time_out_str);
+
+                        // On récupère la borne suppérieur et la borne inférieur de la fenêtre dans laquelle on rafraichie la session.
+                        int slidingUpperBound = time_out + (time_out / 2);
+                        int slidingLowerBound = time_out / 2;
+
+                        // Pour raffraichir la date dans le cookie et la base il faut que le temps de session active 
+                        // soit entre 10 et 30 minutes pour une session à 20 minute par défaut
+                        if (elapsedTimeSinceLastAccess.TotalMinutes > slidingLowerBound
+                            && elapsedTimeSinceLastAccess.TotalMinutes < slidingUpperBound)
+                        {
+                            // Ici volontairement on fait appel à la Session pour que le SessionService remette à jour la 
+                            // date du cookie et que la BDD soit mise à jour
+                            string valeurTemp = this.AspSession["dummy"].ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get the elapsed time interval since the last session access date and now.
+        /// </summary>
+        /// <param name="lastAccess">W3C formated string indicating the last accessed date.</param>
+        /// <returns>The time interval since the last accessed date and now</returns>
+        private TimeSpan GetElapsedTimeSinceSessionLastAccess(string lastAccess)
+        {
+            string lastAccessDecoded = Server.UrlDecode(lastAccess);
+
+            // Parsing de la date récupérée dans le cookie qui est en temps UTC
+            // on n'utilise pas le server url decode car il transforme l'heure UTC en heure du serveur
+            DateTime dateLastCookieAccess = ParseW3C(lastAccessDecoded);
+
+            // DateTime actuel en UTC
+            DateTime currentTime = DateTime.Now.ToUniversalTime();
+
+            TimeSpan elapsedTimeSinceLastAccess = currentTime - dateLastCookieAccess;
+
+            return elapsedTimeSinceLastAccess;
+        }
+
+        /// <summary>
+        /// OnLoad de la HomelidaysPage
+        /// </summary>
+        /// <param name="e">Evenement du OnLoad</param>
+        protected override void OnLoad(EventArgs e)
+        {
+            // Rafraichissement de la date de dernier accès du cookie Yacht + rafraichissement de la date dans la BDD
+            this.RefreshCookieYachtLastTimeAccess();
+
+            base.OnLoad(e);
         }
     }
 }
