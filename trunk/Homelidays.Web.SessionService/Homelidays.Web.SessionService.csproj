@@ -75,7 +75,8 @@
     <None Include="_02 ScalableSessionStateStore Business Layer.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AspSessionServiceConfig.xml">
+    <Content Include="AspSessionServiceConfigAdo.Net.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Createtables.sql">
     </Content>

@@ -2,7 +2,7 @@
 <Partitions>
 	<Partition>
 		<ConnectionString>Data Source=.\;Initial Catalog=tempdb;</ConnectionString>
-    <Login>sa</Login>
-    <Password>123456</Password>
+		<Login>sa</Login>
+		<Password>123456</Password>
 	</Partition>
  </Partitions>

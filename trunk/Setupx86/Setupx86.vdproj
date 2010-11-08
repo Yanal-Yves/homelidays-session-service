@@ -27,19 +27,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_08956231E1BC422E8682BBC78F7A3D5D"
-        "OwnerKey" = "8:_46E29938E32A436187068B1574C8A5FC"
+        "MsmKey" = "8:_23430D0AAFBB4C1CB0FF4C70B8F7F6D4"
+        "OwnerKey" = "8:_26C7E5431C9341199409F4997ED2F2BF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_278DFAFB202744F2BD923578915AE056"
-        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_46E29938E32A436187068B1574C8A5FC"
+        "MsmKey" = "8:_26C7E5431C9341199409F4997ED2F2BF"
         "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -63,8 +57,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A197A2051E4B4C308D580C219AF46978"
-        "OwnerKey" = "8:_278DFAFB202744F2BD923578915AE056"
+        "MsmKey" = "8:_9C4ADBD436F5434D9BFE904C7849DA14"
+        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -101,6 +95,12 @@
         {
         "MsmKey" = "8:_E4996F4E22F44D92942B8880E00742FE"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F1BECA73B77C48D39F9EC10ACE7A407F"
+        "OwnerKey" = "8:_9C4ADBD436F5434D9BFE904C7849DA14"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -970,7 +970,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_08956231E1BC422E8682BBC78F7A3D5D"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_23430D0AAFBB4C1CB0FF4C70B8F7F6D4"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -984,21 +984,7 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_278DFAFB202744F2BD923578915AE056"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:policy_9_0_Microsoft_VC90_ATL_x86.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_46E29938E32A436187068B1574C8A5FC"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_26C7E5431C9341199409F4997ED2F2BF"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -1012,7 +998,21 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_A197A2051E4B4C308D580C219AF46978"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_9C4ADBD436F5434D9BFE904C7849DA14"
+            {
+            "UseDynamicProperties" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "SourcePath" = "8:policy_9_0_Microsoft_VC90_ATL_x86.msm"
+                "Properties"
+                {
+                }
+            "LanguageId" = "3:0"
+            "Exclude" = "11:FALSE"
+            "Folder" = "8:"
+            "Feature" = "8:"
+            "IsolateTo" = "8:"
+            }
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_F1BECA73B77C48D39F9EC10ACE7A407F"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -1055,6 +1055,35 @@
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_62D239C6592A42AB9DF6C0944D1485E4"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F54AFEB3729A44EAAE61FA35A0762733"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{8C5345E8-C67B-4128-8C01-AD896ED8A764}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                "ExcludeFilter" = "8:createtables.sql"
                 }
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8F2810B9F7A04050A67385293F100175"

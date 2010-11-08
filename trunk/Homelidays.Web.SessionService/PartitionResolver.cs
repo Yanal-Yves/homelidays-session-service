@@ -52,7 +52,7 @@ namespace Homelidays.Web.SessionService
             if (!isConfLoaded)
             {
                 string currentDir = FileUtility.GetDirectory();
-                XDocument doc = XDocument.Load(Path.Combine(currentDir, "AspSessionServiceConfig.xml"));
+                XDocument doc = XDocument.Load(Path.Combine(currentDir, "AspSessionServiceConfigAdo.Net.xml"));
                 if (doc != null)
                 {
                     var query = from conf in doc.Element("Partitions").Elements("Partition")

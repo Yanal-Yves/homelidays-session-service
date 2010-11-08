@@ -15,13 +15,19 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_03A647BECBA1435A8B7FC28AAAE09891"
+        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1C4F5D20E2E24A51AAABE2A288EAF4AF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_2699E61558A7451796395298BB6E275C"
+        "MsmKey" = "8:_3D45D9DF2B564654BEEE5ADEE95FAD75"
         "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -51,20 +57,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6F5EEC72BE8347F7A9301A813DC1AB41"
-        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7043F8E3FC18E2C87ABB237C72545565"
         "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_922131BFE54C4722B47EC791F26475E9"
-        "OwnerKey" = "8:_6F5EEC72BE8347F7A9301A813DC1AB41"
+        "MsmKey" = "8:_9568C529E2AE45D7B83627770F50AC21"
+        "OwnerKey" = "8:_3D45D9DF2B564654BEEE5ADEE95FAD75"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9DFAAE0F0F3D4321ABBD5A98FCC163D4"
+        "OwnerKey" = "8:_03A647BECBA1435A8B7FC28AAAE09891"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -77,12 +83,6 @@
         {
         "MsmKey" = "8:_B6B53178126744EEA59159C8AC4B4A03"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C8D746500BF84C80AE1B97FCEE42A9EF"
-        "OwnerKey" = "8:_2699E61558A7451796395298BB6E275C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -455,7 +455,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Session Service"
         "ProductCode" = "8:{F743E18D-00F5-4C64-BEED-3541CF8E13A8}"
-        "PackageCode" = "8:{093736E3-D7A0-42FA-8977-217E0F8480EF}"
+        "PackageCode" = "8:{D1BD252A-4037-4214-B44D-8DCF7426218E}"
         "UpgradeCode" = "8:{F652AF9F-D382-4DCA-953C-20B95A149FFA}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -970,21 +970,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_2699E61558A7451796395298BB6E275C"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:policy_9_0_Microsoft_VC90_CRT_x86_x64.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:TRUE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_6F5EEC72BE8347F7A9301A813DC1AB41"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_03A647BECBA1435A8B7FC28AAAE09891"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -998,21 +984,21 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_922131BFE54C4722B47EC791F26475E9"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_3D45D9DF2B564654BEEE5ADEE95FAD75"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:microsoft_vc90_atl_x86_x64.msm"
+            "SourcePath" = "8:policy_9_0_Microsoft_VC90_CRT_x86_x64.msm"
                 "Properties"
                 {
                 }
             "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
+            "Exclude" = "11:TRUE"
             "Folder" = "8:"
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_C8D746500BF84C80AE1B97FCEE42A9EF"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_9568C529E2AE45D7B83627770F50AC21"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -1022,6 +1008,20 @@
                 }
             "LanguageId" = "3:0"
             "Exclude" = "11:TRUE"
+            "Folder" = "8:"
+            "Feature" = "8:"
+            "IsolateTo" = "8:"
+            }
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_9DFAAE0F0F3D4321ABBD5A98FCC163D4"
+            {
+            "UseDynamicProperties" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "SourcePath" = "8:microsoft_vc90_atl_x86_x64.msm"
+                "Properties"
+                {
+                }
+            "LanguageId" = "3:0"
+            "Exclude" = "11:FALSE"
             "Folder" = "8:"
             "Feature" = "8:"
             "IsolateTo" = "8:"
@@ -1055,6 +1055,35 @@
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8AA2F4E598D748E9805562CD6F8AA73C"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F54AFEB3729A44EAAE61FA35A0762733"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{8C5345E8-C67B-4128-8C01-AD896ED8A764}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                "ExcludeFilter" = "8:createtables.sql"
                 }
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8F2810B9F7A04050A67385293F100175"
