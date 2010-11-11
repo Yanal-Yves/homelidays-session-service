@@ -45,6 +45,32 @@ namespace Homelidays.Web.SessionService
         }
 
         /// <summary>
+        /// reset la configuration du partitionresolver
+        /// </summary>
+        public void ResetConf()
+        {
+            isConfLoaded = false;
+            this.LoadConf();
+        }
+
+        /// <summary>
+        /// Get the connection string correspond to the provided sessionId
+        /// </summary>
+        /// <param name="sessionId">The session id</param>
+        /// <returns>The connection string to use with the provided session id</returns>
+        public string ResolvePartition(object sessionId)
+        {
+            string session_id = (string)sessionId;
+
+            // hash the incoming session ID into one of the available partitions
+            // TODO comprendre la ligne en dessous et sassurer que la répartition est linéaire
+            // TODO : géré le retrait d'un serveur de session à chaud !
+            // int partitionID = Math.Abs(session_id.GetHashCode()) % this.partitionsConnectionStrings.Length;
+            int partitionID = 0;
+            return partitionsConnectionStrings[partitionID];
+        }
+
+        /// <summary>
         /// Charge la configuration depuis un fichier xml
         /// </summary>
         private void LoadConf()
@@ -70,32 +96,6 @@ namespace Homelidays.Web.SessionService
                 SessionPersistence.CreateTables(partitionsConnectionStrings[0]);
                 isConfLoaded = true;
             }
-        }
-
-        /// <summary>
-        /// reset la configuration du partitionresolver
-        /// </summary>
-        public void ResetConf()
-        {
-            isConfLoaded = false;
-            this.LoadConf();
-        }
-
-        /// <summary>
-        /// Get the connection string correspond to the provided sessionId
-        /// </summary>
-        /// <param name="sessionId">The session id</param>
-        /// <returns>The connection string to use with the provided session id</returns>
-        public string ResolvePartition(object sessionId)
-        {
-            string session_id = (string)sessionId;
-
-            // hash the incoming session ID into one of the available partitions
-            // TODO comprendre la ligne en dessous et sassurer que la répartition est linéaire
-            // TODO : géré le retrait d'un serveur de session à chaud !
-            // int partitionID = Math.Abs(session_id.GetHashCode()) % this.partitionsConnectionStrings.Length;
-            int partitionID = 0;
-            return partitionsConnectionStrings[partitionID];
         }
     }
 }

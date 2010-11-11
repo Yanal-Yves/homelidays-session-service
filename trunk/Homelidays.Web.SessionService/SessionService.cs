@@ -94,18 +94,6 @@ namespace Homelidays.Web.SessionService
         }
 
         /// <summary>
-        /// Enocde input string like ASP is doing for '-' and ':'. This is used for encoding last accessed date
-        /// </summary>
-        /// <param name="lastAccessedDate">the string to encode</param>
-        /// <returns>The encoded string</returns>
-        private static string UrlEncode(string lastAccessedDate)
-        {
-            string url_enc_last_accessed_date = lastAccessedDate.Replace("-", "%2D");
-            url_enc_last_accessed_date = url_enc_last_accessed_date.Replace(":", "%3A");
-            return url_enc_last_accessed_date;
-        }
-
-        /// <summary>
         /// Persist session in data accesslayer
         /// </summary>
         /// <param name="context">Httpcontext of the caller</param>
@@ -140,6 +128,18 @@ namespace Homelidays.Web.SessionService
             HttpCookie cookie = context.Request.Cookies[AppSettingsManager.CookieName];
             string session_id = context.Server.UrlDecode(cookie[AppSettingsManager.CookieKey]).ToLower().Trim();
             persist.DeleteSession(session_id);
+        }
+
+        /// <summary>
+        /// Enocde input string like ASP is doing for '-' and ':'. This is used for encoding last accessed date
+        /// </summary>
+        /// <param name="lastAccessedDate">the string to encode</param>
+        /// <returns>The encoded string</returns>
+        private static string UrlEncode(string lastAccessedDate)
+        {
+            string url_enc_last_accessed_date = lastAccessedDate.Replace("-", "%2D");
+            url_enc_last_accessed_date = url_enc_last_accessed_date.Replace(":", "%3A");
+            return url_enc_last_accessed_date;
         }
     }
 }

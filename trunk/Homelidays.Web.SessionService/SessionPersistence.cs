@@ -64,6 +64,222 @@ namespace Homelidays.Web.SessionService
         }
 
         /// <summary>
+        /// Création des tables de persistence dans la chaine de connexion fournie
+        /// </summary>
+        /// <param name="cnx_str">chaine de connexion ou créer la table </param>
+        public static void CreateTables(string cnx_str)
+        {
+            string dir = FileUtility.GetDirectory();
+            string sqlScript;
+            using (TextReader tr = new StreamReader(Path.Combine(dir, "Createtables.sql")))
+            {
+                sqlScript = tr.ReadToEnd();
+                tr.Close();
+            }
+
+            using (SqlConnection conn = new SqlConnection(cnx_str))
+            {
+                using (SqlCommand loadCmd = new SqlCommand())
+                {
+                    loadCmd.CommandText = sqlScript;
+                    loadCmd.Connection = conn;
+                    try
+                    {
+                        conn.Open();
+                        loadCmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        Loggers.Logger.Error("Create tables failed : " + e.Message);
+                        throw;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Serialize the SessionState Collection in order to save it in the database
+        /// </summary>
+        /// <param name="session">the session state to serailize to a string</param>
+        /// <returns>a string of an formatted xml</returns>
+        public string Serialize(SessionState session)
+        {
+            if (session == null)
+            {
+                return null;
+            }
+
+            var xquery = from sess in session
+                         select this.SerializeItemOrTable(sess.Key, sess.Value);
+
+            StringBuilder sb = new StringBuilder();
+            XmlWriterSettings xws = new XmlWriterSettings();
+            xws.OmitXmlDeclaration = false;
+            xws.Indent = false;
+
+            using (XmlWriter xw = XmlWriter.Create(sb, xws))
+            {
+                XDocument doc = new XDocument(new XElement("Session", xquery));
+                doc.WriteTo(xw);
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Deserialize un xml en objet sessionstate
+        /// </summary>
+        /// <param name="xml">xml a déserializer</param>
+        /// <returns>retourne un objet sessionstate</returns>
+        public SessionState Deserialize(string xml)
+        {
+            if (xml == null)
+            {
+                return null;
+            }
+
+            SessionState session = new SessionState();
+
+            XDocument xdoc = XDocument.Parse(xml);
+            var queryforItem = from item in xdoc.Element("Session").Elements()
+                               select new
+                               {
+                                   key = item.Attribute("Key").Value,
+                                   value = this.DeserializeItem(item)
+                               };
+            foreach (var item in queryforItem)
+            {
+                session.Add(item.key, item.value);
+            }
+
+            return session;
+        }
+
+        /// <summary>
+        /// Load the session state corresponding to a session id from the database
+        /// </summary>
+        /// <param name="sessionId">the session id</param>
+        /// <returns>the requested session state or a new one if it does not exist in the database or it is expired</returns>
+        public SessionState LoadSession(string sessionId)
+        {
+            string cnx_str;
+            var resolver = new PartitionResolver();
+            cnx_str = resolver.ResolvePartition(sessionId);
+            SessionState session = null;
+
+            using (SqlConnection conn = new SqlConnection(cnx_str))
+            {
+                using (SqlCommand loadCmd = new SqlCommand())
+                {
+                    loadCmd.CommandText = SelectStatement;
+                    loadCmd.Connection = conn;
+                    loadCmd.Parameters.AddWithValue("@Id", new Guid(sessionId));
+                    try
+                    {
+                        conn.Open();
+                        using (SqlDataReader reader = loadCmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            { // Session has not expired => deserialize it
+                                session = this.Deserialize(reader["Data"].ToString());
+                                session.TimeOut = int.Parse(reader["SessionTimeOut"].ToString());
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Loggers.Logger.Error("Load session failed : " + e.Message);
+                        resolver.ResetConf();
+                        throw;
+                    }
+                }
+            }
+
+            return session;
+        }
+
+        /// <summary>
+        /// Save the provided session state into the database
+        /// </summary>
+        /// <param name="sessionId">the session id of the session state to save</param>
+        /// <param name="session">the session state to save</param>
+        /// <param name="sessionTimeOut">Timeout of the session</param>
+        public void SaveSession(string sessionId, SessionState session, int sessionTimeOut)
+        {
+            string cnx_str;
+            var resolver = new PartitionResolver();
+            cnx_str = resolver.ResolvePartition(sessionId);
+
+            using (SqlConnection conn = new SqlConnection(cnx_str))
+            {
+                using (SqlCommand saveCmd = new SqlCommand())
+                {
+                    saveCmd.Connection = conn;
+                    saveCmd.CommandText = DeleteStatement;
+                    saveCmd.CommandText += InsertStatement;
+
+                    saveCmd.Parameters.AddWithValue("@SessionTimeOut", sessionTimeOut);
+                    saveCmd.Parameters.AddWithValue("@Data", this.Serialize(session));
+
+                    saveCmd.Parameters.AddWithValue("@ID", new Guid(sessionId));
+                    try
+                    {
+                        conn.Open();
+                        saveCmd.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        Loggers.Logger.Error("Save Session failed : " + e.Message);
+                        resolver.ResetConf();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// delete the provided session state into the database
+        /// </summary>
+        /// <param name="sessionId">the session id of the session state to save</param>
+        public void DeleteSession(string sessionId)
+        {
+            string cnx_str;
+            var resolver = new PartitionResolver();
+            cnx_str = resolver.ResolvePartition(sessionId);
+
+            using (SqlConnection conn = new SqlConnection(cnx_str))
+            {
+                using (SqlCommand saveCmd = new SqlCommand())
+                {
+                    saveCmd.Connection = conn;
+                    saveCmd.CommandText = DeleteStatement;
+                    saveCmd.Parameters.AddWithValue("@ID", new Guid(sessionId));
+                    try
+                    {
+                        conn.Open();
+                        saveCmd.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        Loggers.Logger.Error("Delete Session failed : " + e.Message);
+                        resolver.ResetConf();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Generate a new session id
+        /// </summary>
+        /// <returns>the generated session id</returns>
+        public string GenerateSessionId()
+        {
+            return Guid.NewGuid().ToString().Replace("-", string.Empty);
+        }
+
+        /// <summary>
         /// Serialize the type of the object
         /// </summary>
         /// <param name="obj">the object to serializee</param>
@@ -295,64 +511,6 @@ namespace Homelidays.Web.SessionService
         }
 
         /// <summary>
-        /// Serialize the SessionState Collection in order to save it in the database
-        /// </summary>
-        /// <param name="session">the session state to serailize to a string</param>
-        /// <returns>a string of an formatted xml</returns>
-        public string Serialize(SessionState session)
-        {
-            if (session == null)
-            {
-                return null;
-            }
-
-            var xquery = from sess in session
-                         select this.SerializeItemOrTable(sess.Key, sess.Value);
-
-            StringBuilder sb = new StringBuilder();
-            XmlWriterSettings xws = new XmlWriterSettings();
-            xws.OmitXmlDeclaration = false;
-            xws.Indent = false;
-
-            using (XmlWriter xw = XmlWriter.Create(sb, xws))
-            {
-                XDocument doc = new XDocument(new XElement("Session", xquery));
-                doc.WriteTo(xw);
-            }
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Deserialize un xml en objet sessionstate
-        /// </summary>
-        /// <param name="xml">xml a déserializer</param>
-        /// <returns>retourne un objet sessionstate</returns>
-        public SessionState Deserialize(string xml)
-        {
-            if (xml == null)
-            {
-                return null;
-            }
-
-            SessionState session = new SessionState();
-
-            XDocument xdoc = XDocument.Parse(xml);
-            var queryforItem = from item in xdoc.Element("Session").Elements()
-                               select new
-                               {
-                                   key = item.Attribute("Key").Value,
-                                   value = this.DeserializeItem(item)
-                               };
-            foreach (var item in queryforItem)
-            {
-                session.Add(item.key, item.value);
-            }
-
-            return session;
-        }
-
-        /// <summary>
         /// Deserialize un item commence par vérifier si c'est une table ou un item
         /// </summary>
         /// <param name="element">Xelement qui contient l'item</param>
@@ -481,164 +639,6 @@ namespace Homelidays.Web.SessionService
             }
 
             return myObject;
-        }
-
-        /// <summary>
-        /// Création des tables de persistence dans la chaine de connexion fournie
-        /// </summary>
-        /// <param name="cnx_str">chaine de connexion ou créer la table </param>
-        public static void CreateTables(string cnx_str)
-        {
-            string dir = FileUtility.GetDirectory();
-            string sqlScript;
-            using (TextReader tr = new StreamReader(Path.Combine(dir, "Createtables.sql")))
-            {
-                sqlScript = tr.ReadToEnd();
-                tr.Close();
-            }
-
-            using (SqlConnection conn = new SqlConnection(cnx_str))
-            {
-                using (SqlCommand loadCmd = new SqlCommand())
-                {
-                    loadCmd.CommandText = sqlScript;
-                    loadCmd.Connection = conn;
-                    try
-                    {
-                        conn.Open();
-                        loadCmd.ExecuteNonQuery();
-                        conn.Close();
-                    }
-                    catch (Exception e)
-                    {
-                        Loggers.Logger.Error("Create tables failed : " + e.Message);
-                        throw;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Load the session state corresponding to a session id from the database
-        /// </summary>
-        /// <param name="sessionId">the session id</param>
-        /// <returns>the requested session state or a new one if it does not exist in the database or it is expired</returns>
-        public SessionState LoadSession(string sessionId)
-        {
-            string cnx_str;
-            var resolver = new PartitionResolver();
-            cnx_str = resolver.ResolvePartition(sessionId);
-            SessionState session = null;
-
-            using (SqlConnection conn = new SqlConnection(cnx_str))
-            {
-                using (SqlCommand loadCmd = new SqlCommand())
-                {
-                    loadCmd.CommandText = SelectStatement;
-                    loadCmd.Connection = conn;
-                    loadCmd.Parameters.AddWithValue("@Id", new Guid(sessionId));
-                    try
-                    {
-                        conn.Open();
-                        using (SqlDataReader reader = loadCmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            { // Session has not expired => deserialize it
-                                session = this.Deserialize(reader["Data"].ToString());
-                                session.TimeOut = int.Parse(reader["SessionTimeOut"].ToString());
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Loggers.Logger.Error("Load session failed : " + e.Message);
-                        resolver.ResetConf();
-                        throw;
-                    }
-                }
-            }
-
-            return session;
-        }
-
-        /// <summary>
-        /// Save the provided session state into the database
-        /// </summary>
-        /// <param name="sessionId">the session id of the session state to save</param>
-        /// <param name="session">the session state to save</param>
-        /// <param name="sessionTimeOut">Timeout of the session</param>
-        public void SaveSession(string sessionId, SessionState session, int sessionTimeOut)
-        {
-            string cnx_str;
-            var resolver = new PartitionResolver();
-            cnx_str = resolver.ResolvePartition(sessionId);
-
-            using (SqlConnection conn = new SqlConnection(cnx_str))
-            {
-                using (SqlCommand saveCmd = new SqlCommand())
-                {
-                    saveCmd.Connection = conn;
-                    saveCmd.CommandText = DeleteStatement;
-                    saveCmd.CommandText += InsertStatement;
-
-                    saveCmd.Parameters.AddWithValue("@SessionTimeOut", sessionTimeOut);
-                    saveCmd.Parameters.AddWithValue("@Data", this.Serialize(session));
-
-                    saveCmd.Parameters.AddWithValue("@ID", new Guid(sessionId));
-                    try
-                    {
-                        conn.Open();
-                        saveCmd.ExecuteNonQuery();
-                    }
-                    catch (Exception e)
-                    {
-                        Loggers.Logger.Error("Save Session failed : " + e.Message);
-                        resolver.ResetConf();
-                        throw;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// delete the provided session state into the database
-        /// </summary>
-        /// <param name="sessionId">the session id of the session state to save</param>
-        public void DeleteSession(string sessionId)
-        {
-            string cnx_str;
-            var resolver = new PartitionResolver();
-            cnx_str = resolver.ResolvePartition(sessionId);
-
-            using (SqlConnection conn = new SqlConnection(cnx_str))
-            {
-                using (SqlCommand saveCmd = new SqlCommand())
-                {
-                    saveCmd.Connection = conn;
-                    saveCmd.CommandText = DeleteStatement;
-                    saveCmd.Parameters.AddWithValue("@ID", new Guid(sessionId));
-                    try
-                    {
-                        conn.Open();
-                        saveCmd.ExecuteNonQuery();
-                    }
-                    catch (Exception e)
-                    {
-                        Loggers.Logger.Error("Delete Session failed : " + e.Message);
-                        resolver.ResetConf();
-                        throw;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Generate a new session id
-        /// </summary>
-        /// <returns>the generated session id</returns>
-        public string GenerateSessionId()
-        {
-            return Guid.NewGuid().ToString().Replace("-", string.Empty);
         }
     }
 }

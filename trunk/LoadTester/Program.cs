@@ -24,7 +24,7 @@ namespace LoadTester
     /// <summary>
     /// Load test de la page de test du session service
     /// </summary>
-    class Program
+    public class Program
     {
         /// <summary>
         /// A value indicating whether to preserver the cookie between two request (one cookie per thread)
@@ -32,37 +32,37 @@ namespace LoadTester
         /// Usually we prefer doing this test with the same client two avoid "memory leaking" in the storage.
         /// Using the same NbThread clients prevent from checking memory leaks in the session id generation code.
         /// </summary>
-        const bool PreserveCookie = true;
+        private const bool PreserveCookie = true;
 
         /// <summary>
         /// Number of threads used by the test program
         /// </summary>
-        const int NbThread = 20;
+        private const int NbThread = 20;
 
         /// <summary>
         /// Compte le nombre d'itération de tous les threads 
         /// </summary>
-        static int nbRequest = 0;
+        private static int numberOfRequest = 0;
 
         /// <summary>
         /// Compte le nombre d'itération de tous les threads pour le test sur la session IIS
         /// </summary>
-        static int nbRequestSessAsp = 0;
+        private static int numberOfRequestSessAsp = 0;
 
         /// <summary>
         /// Tables of cookies. Each thread has one cookie. Used only if PreserveCookie is true
         /// </summary>
-        static CookieCollection[] cookies = new CookieCollection[NbThread];
+        private static CookieCollection[] cookies = new CookieCollection[NbThread];
 
         /// <summary>
         /// Fait le même job que DoWork plus un comptage d'itération avec affichage
         /// </summary>
-        static void DisplayNumberOfRequest()
+        private static void DisplayNumberOfRequest()
         {
             for (;;)
             {
                 Thread.Sleep(10000);
-                Console.WriteLine("Number of HTTP requests handled by AspSessionService:  " + nbRequest);
+                Console.WriteLine("Number of HTTP requests handled by AspSessionService:  " + numberOfRequest);
             }
         }
 
@@ -70,7 +70,7 @@ namespace LoadTester
         /// Appel la page de test du service de session avec erreur 500 et sans erreur
         /// </summary>
         /// <param name="threadNumber">the number of the thread</param>
-        static void CallTest(object threadNumber)
+        private static void CallTest(object threadNumber)
         {
             int thread_number = (int)threadNumber;
             for (;;)
@@ -79,19 +79,19 @@ namespace LoadTester
                 RequestUrl(url, true, false, thread_number);
                 url += "?Error=1";
                 RequestUrl(url, false, false, thread_number);
-                Interlocked.Add(ref nbRequest, 1);
+                Interlocked.Add(ref numberOfRequest, 1);
             }
         }
 
         /// <summary>
         /// Fait le même job que DoWork plus un comptage d'itération avec affichage
         /// </summary>
-        static void DisplayNumberOfRequestOldSess()
+        private static void DisplayNumberOfRequestOldSess()
         {
             for (;;)
             {
                 Thread.Sleep(10000);
-                Console.WriteLine("IIS Session : " + nbRequestSessAsp);
+                Console.WriteLine("IIS Session : " + numberOfRequestSessAsp);
             }
         }
 
@@ -99,7 +99,7 @@ namespace LoadTester
         /// Appel la page de test du service de session avec erreur 500 et sans erreur.
         /// </summary>
         /// <param name="threadNumber">the number of the thread</param>
-        static void CallTestIisSession(object threadNumber)
+        private static void CallTestIisSession(object threadNumber)
         {
             int thread_number = (int)threadNumber;
             for (;;)
@@ -108,7 +108,7 @@ namespace LoadTester
                 RequestUrl(url, true, false, thread_number);
                 url += "?Error=1";
                 RequestUrl(url, false, false, thread_number);
-                Interlocked.Add(ref nbRequestSessAsp, 1);
+                Interlocked.Add(ref numberOfRequestSessAsp, 1);
             }
         }
 
@@ -116,14 +116,14 @@ namespace LoadTester
         /// Appel la page de test du service de session avec erreur 500 et sans erreur
         /// </summary>
         /// <param name="threadNumber">the number of the thread</param>
-        static void CallTestScriptingDictionary(object threadNumber)
+        private static void CallTestScriptingDictionary(object threadNumber)
         {
             int thread_number = (int)threadNumber;
             for (;;)
             {
                 string url = "http://sessionservice.my.homelidays.com/SessionService/TestScriptingDictionary.asp";
                 RequestUrl(url, true, false, thread_number);
-                Interlocked.Add(ref nbRequest, 1);
+                Interlocked.Add(ref numberOfRequest, 1);
             }
         }
 
@@ -199,7 +199,7 @@ namespace LoadTester
         /// Test entry point
         /// </summary>
         /// <param name="args">Application argument : none</param>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Thread thread2 = new Thread(DisplayNumberOfRequest);
             thread2.Start();

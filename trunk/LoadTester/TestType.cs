@@ -21,6 +21,9 @@ using System.Text;
 
 namespace LoadTester
 {
+    /// <summary>
+    /// Define the type of Test the LoadTester should run.
+    /// </summary>
     public enum TestType
     {
         /// <summary>

@@ -83,6 +83,18 @@ namespace Homelidays.Web.SessionService
         }
 
         /// <summary>
+        /// OnLoad de la HomelidaysPage
+        /// </summary>
+        /// <param name="e">Evenement du OnLoad</param>
+        protected override void OnLoad(EventArgs e)
+        {
+            // Rafraichissement de la date de dernier accès du cookie Yacht + rafraichissement de la date dans la BDD
+            this.RefreshCookieYachtLastTimeAccess();
+
+            base.OnLoad(e);
+        }
+
+        /// <summary>
         /// Parse a W3C formated string to a DateTime
         /// </summary>
         /// <param name="dateTimeStringW3C">W3C formated string</param>
@@ -157,18 +169,6 @@ namespace Homelidays.Web.SessionService
             TimeSpan elapsedTimeSinceLastAccess = currentTime - dateLastCookieAccess;
 
             return elapsedTimeSinceLastAccess;
-        }
-
-        /// <summary>
-        /// OnLoad de la HomelidaysPage
-        /// </summary>
-        /// <param name="e">Evenement du OnLoad</param>
-        protected override void OnLoad(EventArgs e)
-        {
-            // Rafraichissement de la date de dernier accès du cookie Yacht + rafraichissement de la date dans la BDD
-            this.RefreshCookieYachtLastTimeAccess();
-
-            base.OnLoad(e);
         }
     }
 }
