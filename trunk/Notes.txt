@@ -16,7 +16,7 @@ TODO:
 
 	C#:
 		- Gestion de Dictioanry en C# pour ne pas le perdre entre asp.net et asp.
-	
+
 	Setup:
 		- Setup should allow users to edit the connection string
 		- The cleaning SQL job should install automaticaly

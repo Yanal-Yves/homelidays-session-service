@@ -397,25 +397,30 @@ STDMETHODIMP CAspSessionContents::RemoveAll()
 	return S_OK;
 }
 
-/// Serialise the content collection into the database
-HRESULT CAspSessionContents::PersistSession()
+/// Get the session id as a Guid usable for DB access
+/// @return S_OK if succeed any other value else
+HRESULT CAspSessionContents::GetSessionId(
+	_variant_t& vtSessionId ///< [in] The session Id as a Guid
+	)
 {
-	AspSessionSerializer serializer;
-	CString xml;
-
-	// Sérialization de la session
 	HRESULT hr;
-	hr = serializer.SerializeSession(dico, xml);
-	if (FAILED(hr))
-	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to intialize component \r\n");
-		return hr;
-	}
-
 	// On récupère le SessionId
 	BSTR bstrSessionId = NULL;
 	hr = ((IAspSession*)m_piAspSession)->get_SessionID(&bstrSessionId);
-	if (FAILED(hr))
+	if (SUCCEEDED(hr))
+	{		
+		CString cstrSessionId = bstrSessionId;
+		SysFreeString(bstrSessionId);
+
+		// The session id is a Guid without the dashes => restore them
+		cstrSessionId.Insert(8, L'-');
+		cstrSessionId.Insert(13, L'-');
+		cstrSessionId.Insert(18, L'-');
+		cstrSessionId.Insert(23, L'-');
+
+		vtSessionId = cstrSessionId;
+	}
+	else
 	{
 		if (bstrSessionId != NULL)
 		{
@@ -423,34 +428,54 @@ HRESULT CAspSessionContents::PersistSession()
 		}
 
 		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to get sessionid \r\n");
-		return hr;
 	}
 
-	_variant_t vtSessionTimeOut;
-	long lSessionTimeOut;
+	return hr;
+}
 
-	// On récupère le TimeOut
-	hr = ((IAspSession*)m_piAspSession)->get_Timeout(&lSessionTimeOut);
-	vtSessionTimeOut = lSessionTimeOut;
-
-	CString cstrSessionId = bstrSessionId;
-	SysFreeString(bstrSessionId);
-
-	// The session id is a Guid without the dashes => restore them
-	cstrSessionId.Insert(8, L'-');
-	cstrSessionId.Insert(13, L'-');
-	cstrSessionId.Insert(18, L'-');
-	cstrSessionId.Insert(23, L'-');
-
-	// On sauvegarde la session en base de données
-	_variant_t vtSessionId = cstrSessionId;
-	_variant_t vtxml = xml;
+/// Serialise the content collection into the database
+HRESULT CAspSessionContents::PersistSession()
+{
+	HRESULT hr;
+	// Get the session id
+	_variant_t vtSessionId;
+	GetSessionId(vtSessionId);
+	
+	// Instanciate the persistance object
 	AspSessionPersistence SessPersistence;
-	hr = SessPersistence.SetSession(vtSessionId, vtSessionTimeOut, vtxml);
-	if (FAILED(hr))
-	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to setsession \r\n");
-		return hr;
+
+	if(this->m_bIsSessionInitialized)
+	{ // Session has been initialized => serialize and store session.
+		AspSessionSerializer serializer;
+		CString xml;
+
+		// Sérialization de la session
+		hr = serializer.SerializeSession(dico, xml);
+		if (FAILED(hr))
+		{
+			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to intialize component \r\n");
+			return hr;
+		}
+
+		_variant_t vtSessionTimeOut;
+		long lSessionTimeOut;
+
+		// On récupère le TimeOut
+		hr = ((IAspSession*)m_piAspSession)->get_Timeout(&lSessionTimeOut);
+		vtSessionTimeOut = lSessionTimeOut;
+
+		// On sauvegarde la session en base de données
+		_variant_t vtxml = xml;
+		hr = SessPersistence.SetSession(vtSessionId, vtSessionTimeOut, vtxml);
+		if (FAILED(hr))
+		{
+			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to setsession \r\n");
+			return hr;
+		}
+	}
+	else
+	{ // Session has not been initialized => refresh the LastAccessDate
+		hr = SessPersistence.RefreshSession(vtSessionId);
 	}
 
 	return hr;

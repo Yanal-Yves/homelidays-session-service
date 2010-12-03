@@ -45,8 +45,12 @@ namespace Homelidays.Web.SessionService.Tests
         public void PartitionResolverResolvePartitionTest()
         {
             PartitionResolver pr = new PartitionResolver();
-            SessionPersistence persist = new SessionPersistence();
-            pr.ResolvePartition(persist.GenerateSessionId());
+            AspSessionPersistence persist = new AspSessionPersistence();
+            string cnx_str = pr.ResolvePartition(persist.GenerateSessionId());
+            bool isAssertOk = cnx_str.Contains("Initial Catalog=");
+            Assert.AreEqual(isAssertOk, true);
+            isAssertOk = cnx_str.Contains("Data Source=");
+            Assert.AreEqual(isAssertOk, true);
         }
     }
 }

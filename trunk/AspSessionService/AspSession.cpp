@@ -178,23 +178,11 @@ STDMETHODIMP CAspSession::OnEndPage()
 
 	// Sauvegarde la session en base de données.
 	if (m_bAbandonSession == FALSE)
-	{ // Il n'y a pas eu d'appel à la méthode Abandon
-		// Le composant COM CAspSessionContents sera toujours dans le même processus que CAspSession.
-		// De plus la durrée de vie de CAspSessionContents est toujours inférieure à celle CAspSession.
-		// On peut donc se passer d'une interface et d'un appel à QueryInterface
-		
-		if (((CAspSessionContents*)this->Contents)->m_bIsSessionInitialized == true)
-		{ // Si la session a été initialisé. i.e. au moins un appel à une méthode de l'objet Session dans l'ASP.
-			// On persiste la session
-			hr = ((CAspSessionContents*)this->Contents)->PersistSession();
-			if (FAILED(hr))
-			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession OnEndPage PersistSession\r\n");
-			}
-		}
-		else
-		{ // Session has not been initialize => nothing to persist
-			hr = S_OK;
+	{ // No call to Session.Abandon => Persist the session
+		hr = ((CAspSessionContents*)this->Contents)->PersistSession();
+		if (FAILED(hr))
+		{
+			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession OnEndPage PersistSession\r\n");
 		}
 	}
 	else
@@ -515,7 +503,7 @@ HRESULT CAspSession::SetSessionCookie()
 	_bstr_t bstrCookieName = L"Yacht"; // For the cookie name
 	_bstr_t bstrCookieKey = L"SessionId"; // For the key
 
-	HRESULT hr = S_OK;
+	HRESULT hr;
 	hr = WriteCookie(bstrCookieName, bstrCookieKey, this->m_bstrSessionId);
 	if (FAILED(hr))
 	{
@@ -523,51 +511,7 @@ HRESULT CAspSession::SetSessionCookie()
 		return hr;
 	}
 
-	// Get the current UTC date as LastAccessed
-	SYSTEMTIME SystemTime;
-	GetSystemTime(&SystemTime);
-
-	// Convert LastAccessed to char array
-	#define SYSTEMTIME_NUMBER_DIGIT 100 // 100 : number of digit of a SYSTEMTIME
-	WCHAR lpszLastAccessed[SYSTEMTIME_NUMBER_DIGIT]; // A char array for the timeout
-	wsprintf(lpszLastAccessed, L"%.2hu-%.2hu-%.2huT%.2hu:%.2huZ", SystemTime.wYear, SystemTime.wMonth, SystemTime.wDay, SystemTime.wHour, SystemTime.wMinute);
-
-	// Ajout de la date de dernier accès dans le cookie
-	bstrCookieKey  = L"LastAccessed";
-	_bstr_t bstrLastAccessed = lpszLastAccessed;
-	hr = WriteCookie(bstrCookieName, bstrCookieKey, bstrLastAccessed);
-	if (FAILED(hr))
-	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession SetCookie WriteCookie LastAccessed\r\n");
-		return hr;
-	}
-
-	// Get the TimeOut
-	long lTimeOut;
-	hr = this->get_Timeout(&lTimeOut);
-	if (FAILED(hr))
-	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession SetCookie get_Timeout\r\n");
-		return hr;
-	}
-
-	// Convert TimeOut to char array
-#define LONG_NUMBER_DIGIT 10 // 10 : number of digit of a long
-	WCHAR lpszTimeOut[LONG_NUMBER_DIGIT]; // A char array for the timeout
-	wsprintf(lpszTimeOut, L"%ld", lTimeOut);
-
-	// Ajout du TimeOut dans le cookie
-	bstrCookieKey  = L"TimeOut";
-	_bstr_t bstrTimeOut = lpszTimeOut;
-	hr = WriteCookie(bstrCookieName, bstrCookieKey, bstrTimeOut);
-	if (FAILED(hr))
-	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession SetCookie TimeOut\r\n");
-		return hr;
-	}
-
 	return hr;
-#undef LONG_NUMBER_DIGIT
 }
 
 /// If found, get the session id from the cookie else set a new session id to the cookie

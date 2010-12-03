@@ -27,7 +27,13 @@ End Sub
 ' @param message the message to display
 Sub WriteTestLog(message)
     Response.Write("<li>")
-    Response.Write(message)
+    If (IsObject(message)) Then
+		If (message Is Nothing) Then
+			Response.Write("Nothing")
+		End If
+	Else
+		Response.Write(message)
+	End If
     Response.Write("</li>")
 End Sub
 

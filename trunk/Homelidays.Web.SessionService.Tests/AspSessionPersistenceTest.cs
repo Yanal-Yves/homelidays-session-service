@@ -24,21 +24,19 @@ namespace Homelidays.Web.SessionService.Tests
     /// This is a test class for SessionPersistence class
     /// </summary>
     [TestFixture]
-    public class SessionPersistenceTest
+    public class AspSessionPersistenceTest
     {
         /// <summary>
         /// Serialized session expected into the database
         /// </summary>
-        private string sessionXml = "<?xml version=\"1.0\" encoding=\"utf-16\"?><Session><Table Key=\"keyarray\" TypeName=\"Table\" Dimension=\"1\" Bounds=\"3\"><Item Key=\"keyarray\" TypeName=\"String\" Coord=\"0\"><![CDATA[Yanal]]></Item><Item Key=\"keyarray\" TypeName=\"String\" Coord=\"1\"><![CDATA[Joe]]></Item><Item Key=\"keyarray\" TypeName=\"String\" Coord=\"2\"><![CDATA[Simon]]></Item></Table><Item Key=\"keybool\" TypeName=\"Bool\">1</Item><Item Key=\"keysignedbyte\" TypeName=\"SingedByte\">-12</Item><Item Key=\"keybyte\" TypeName=\"UnsingedByte\">12</Item><Item Key=\"keycur\" TypeName=\"Currency\">543</Item><Item Key=\"keydate\" TypeName=\"Date\">1962-10-19 00:00:00</Item><Item Key=\"keydbl\" TypeName=\"Real8\">3,23454</Item><Item Key=\"keyushort\" TypeName=\"UnsingedShort\">13</Item><Item Key=\"keyint\" TypeName=\"SingedShort\">12</Item><Item Key=\"keyuint\" TypeName=\"UnsingedInteger\">2434</Item><Item Key=\"keylng\" TypeName=\"SingedInteger\">25427</Item><Item Key=\"keynull\" TypeName=\"Null\"></Item><Item Key=\"keysng\" TypeName=\"Real4\">75,34211</Item><Item Key=\"keydecimal\" TypeName=\"Decimal\">234,456</Item><Item Key=\"keytime\" TypeName=\"Date\">1899-12-30 04:35:47</Item><Item Key=\"keyempty\" TypeName=\"Empty\"></Item></Session>";
+        string sessionXml = "<?xml version=\"1.0\" encoding=\"utf-16\"?><Session><Table Key=\"keyarray\" TypeName=\"Table\" Dimension=\"1\" Bounds=\"3\"><Item Key=\"keyarray\" TypeName=\"String\" Coord=\"0\"><![CDATA[Yanal]]></Item><Item Key=\"keyarray\" TypeName=\"String\" Coord=\"1\"><![CDATA[Joe]]></Item><Item Key=\"keyarray\" TypeName=\"String\" Coord=\"2\"><![CDATA[Simon]]></Item></Table><Item Key=\"keybool\" TypeName=\"Bool\">1</Item><Item Key=\"keysignedbyte\" TypeName=\"SingedByte\">-12</Item><Item Key=\"keybyte\" TypeName=\"UnsingedByte\">12</Item><Item Key=\"keycur\" TypeName=\"Currency\">543</Item><Item Key=\"keydate\" TypeName=\"Date\">1962-10-19 00:00:00</Item><Item Key=\"keydbl\" TypeName=\"Real8\">3,23454</Item><Item Key=\"keyushort\" TypeName=\"UnsingedShort\">13</Item><Item Key=\"keyint\" TypeName=\"SingedShort\">12</Item><Item Key=\"keyuint\" TypeName=\"UnsingedInteger\">2434</Item><Item Key=\"keylng\" TypeName=\"SingedInteger\">25427</Item><Item Key=\"keynull\" TypeName=\"Null\"></Item><Item Key=\"keysng\" TypeName=\"Real4\">75,34211</Item><Item Key=\"keydecimal\" TypeName=\"Decimal\">234,456</Item><Item Key=\"keytime\" TypeName=\"Date\">1899-12-30 04:35:47</Item><Item Key=\"keyempty\" TypeName=\"Empty\"></Item></Session>";
 
         /// <summary>
         /// Create a session state for the tests
         /// </summary>
-        /// <returns>the test sesssion state</returns>
-        public SessionState CreateSessionState()
+        /// <param name="st">The session content to populate with test data.</param>
+        public void CreateSessionState(AspSessionContents st)
         {
-            SessionState st = new SessionState();
-
             // Tableau
             object[] array = new object[3];
             array[0] = "Yanal";
@@ -90,8 +88,6 @@ namespace Homelidays.Web.SessionService.Tests
 
             // Empty
             st["keyempty"] = new AspEmpty();
-
-            return st;
         }
 
         /// <summary>
@@ -100,8 +96,9 @@ namespace Homelidays.Web.SessionService.Tests
         [Test]
         public void SerializeTest()
         {
-            SessionPersistence persist = new SessionPersistence();
-            var st = this.CreateSessionState();
+            AspSessionPersistence persist = new AspSessionPersistence();
+            AspSessionContents st = new AspSessionContents();
+            this.CreateSessionState(st);
             var xml = persist.Serialize(st);
             Assert.AreEqual(xml, this.sessionXml);
         }
@@ -112,9 +109,10 @@ namespace Homelidays.Web.SessionService.Tests
         [Test]
         public void DeSerializeTest()
         {
-            SessionPersistence persist = new SessionPersistence();
+            AspSessionPersistence persist = new AspSessionPersistence();
             var sess = persist.Deserialize(this.sessionXml);
-            var st = this.CreateSessionState();
+            var st = new AspSessionContents();
+            this.CreateSessionState(st);
             foreach (var item in sess)
             {
                 object session_value = st[item.Key]; // st[item.Key].GetType() == item.value.GetType()
@@ -129,8 +127,9 @@ namespace Homelidays.Web.SessionService.Tests
         public void SaveSessionTest()
         {
             PartitionResolver pr = new PartitionResolver();
-            SessionPersistence persist = new SessionPersistence();
-            SessionState st = this.CreateSessionState();
+            AspSessionPersistence persist = new AspSessionPersistence();
+            AspSessionContents st = new AspSessionContents();
+            this.CreateSessionState(st);
             var sessionid = persist.GenerateSessionId();
             persist.SaveSession(sessionid, st, 20);
             var sessionSaved = persist.LoadSession(sessionid);
@@ -138,6 +137,37 @@ namespace Homelidays.Web.SessionService.Tests
             {
                 Assert.AreEqual(item.Value, st[item.Key]);
             }
+        }
+
+        /// <summary>
+        /// Test of SessionPersistence.RefreshSession
+        /// </summary>
+        [Test]
+        public void RefreshSessionTest()
+        {
+            PartitionResolver pr = new PartitionResolver();
+            AspSessionPersistence persist = new AspSessionPersistence();
+            AspSessionContents st = new AspSessionContents();
+            this.CreateSessionState(st);
+            var sessionid = persist.GenerateSessionId();
+            persist.SaveSession(sessionid, st, 20);
+            persist.RefreshSession(sessionid);
+            var sessionSaved = persist.LoadSession(sessionid);
+            Assert.IsNotNull(sessionSaved);
+        }
+
+        /// <summary>
+        /// Test of SessionPersistence.DeleteSession
+        /// </summary>
+        [Test]
+        public void DeleteSessionTest()
+        {
+            PartitionResolver pr = new PartitionResolver();
+            AspSessionPersistence persist = new AspSessionPersistence();
+            var sessionid = persist.GenerateSessionId();
+            persist.DeleteSession(sessionid);
+            var sessionSaved = persist.LoadSession(sessionid);
+            Assert.IsNull(sessionSaved, null);
         }
 
         /// <summary>
@@ -155,7 +185,7 @@ namespace Homelidays.Web.SessionService.Tests
         [Test]
         public void CreateTableTest()
         {
-            SessionPersistence.CreateTables(ConfigurationManager.ConnectionStrings["CnxForCreateTable"].ConnectionString);
+            AspSessionPersistence.CreateTables(ConfigurationManager.ConnectionStrings["CnxForCreateTable"].ConnectionString);
         }
 
         /// <summary>
@@ -164,7 +194,7 @@ namespace Homelidays.Web.SessionService.Tests
         [Test]
         public void GenerateNewSessionIdTest()
         {
-            SessionPersistence persist = new SessionPersistence();
+            AspSessionPersistence persist = new AspSessionPersistence();
             persist.GenerateSessionId();
         }
     }

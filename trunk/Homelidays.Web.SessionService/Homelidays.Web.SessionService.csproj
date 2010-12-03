@@ -56,20 +56,19 @@
   <ItemGroup>
     <Compile Include="AppSettingsManager.cs" />
     <Compile Include="AspEmpty.cs" />
+    <Compile Include="AspSession.cs" />
+    <Compile Include="AspSessionContents.cs" />
+    <Compile Include="AspSessionPersistence.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="FileUtility.cs" />
-    <Compile Include="ISessionState.cs" />
+    <Compile Include="IAspSessionContents.cs" />
     <Compile Include="Loggers.cs" />
     <Compile Include="VbaNothing.cs" />
     <Compile Include="PartitionResolver.cs" />
-    <Compile Include="ISessionPersistence.cs" />
-    <Compile Include="SessionService.cs" />
-    <Compile Include="SessionState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SessionPersistence.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="_02 ScalableSessionStateStore Business Layer.cd" />

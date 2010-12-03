@@ -28,7 +28,7 @@ namespace Homelidays.Web.SessionService.Tests
     /// this is a test class for Session Service
     /// </summary>
     [TestFixture]
-    public class SessionServiceTest
+    public class AspSessionTest
     {
         /// <summary>
         /// Test du initialize Session
@@ -44,8 +44,9 @@ namespace Homelidays.Web.SessionService.Tests
             StreamWriter sw = new StreamWriter(str);
             HttpResponse response = new HttpResponse(sw);
             HttpContext context = new HttpContext(request, response);
-            var session = SessionService.InitializeSession(context);
-            Assert.IsNotNull(session);
+            AspSession asp_session = new AspSession(context);
+            ReflectionUtility.CallNonPublicMethod(asp_session, "InitializeSession", null); // equivaut à asp_session.InitializeSession();
+            Assert.IsNotNull(asp_session.Contents);
         }
 
         /// <summary>
@@ -62,9 +63,13 @@ namespace Homelidays.Web.SessionService.Tests
             StreamWriter sw = new StreamWriter(str);
             HttpResponse response = new HttpResponse(sw);
             HttpContext context = new HttpContext(request, response);
+            var asp_session = new AspSession(context);
             string session_id = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            var cookie = SessionService.SetCookie(context, 20, session_id);
+            ReflectionUtility.SetNonPublicField(asp_session, "sessionId", session_id);
+            HttpCookie cookie = (HttpCookie)ReflectionUtility.CallNonPublicMethod(asp_session, "SetSessionCookie", null);
             Assert.IsNotNull(cookie);
+            var session_id_cookie_str = cookie["SessionId"];
+            Assert.AreEqual(session_id, session_id_cookie_str);
         }
 
         /// <summary>
@@ -79,7 +84,7 @@ namespace Homelidays.Web.SessionService.Tests
             request.ContentEncoding = requestEncoding;
 
             // generate cookie
-            SessionPersistence persist = new SessionPersistence();
+            AspSessionPersistence persist = new AspSessionPersistence();
             string key = persist.GenerateSessionId();
             HttpCookie cookie = new HttpCookie(AppSettingsManager.CookieName);
             cookie.Values.Add(AppSettingsManager.CookieKey, key);
@@ -89,12 +94,13 @@ namespace Homelidays.Web.SessionService.Tests
             HttpResponse response = new HttpResponse(sw);
             HttpContext context = new HttpContext(request, response);
 
-            // Create SessionState
-            SessionPersistenceTest pt = new SessionPersistenceTest();
-            SessionState sess = pt.CreateSessionState();
-            SessionService.PersistSession(context, sess);
+            // Create AspSession
+            AspSessionPersistenceTest pt = new AspSessionPersistenceTest();
+            AspSession asp_session = new AspSession(context);
+            pt.CreateSessionState(asp_session.Contents);
+            asp_session.PersistSession();
             var sessloaded = persist.LoadSession(key);
-            foreach (var item in sess)
+            foreach (var item in asp_session.Contents)
             {
                 Assert.AreEqual(item.Value, sessloaded[item.Key]);
             }
@@ -112,7 +118,7 @@ namespace Homelidays.Web.SessionService.Tests
             request.ContentEncoding = requestEncoding;
 
             // generate cookie
-            SessionPersistence persist = new SessionPersistence();
+            AspSessionPersistence persist = new AspSessionPersistence();
             string key = persist.GenerateSessionId();
             HttpCookie cookie = new HttpCookie(AppSettingsManager.CookieName);
             cookie.Values.Add(AppSettingsManager.CookieKey, key);
@@ -122,15 +128,16 @@ namespace Homelidays.Web.SessionService.Tests
             HttpResponse response = new HttpResponse(sw);
             HttpContext context = new HttpContext(request, response);
             
-            // Create SessionState
-            SessionPersistenceTest pt = new SessionPersistenceTest();
-            SessionState sess = pt.CreateSessionState();
+            // Create AspSession
+            AspSessionPersistenceTest pt = new AspSessionPersistenceTest();
+            AspSession asp_session = new AspSession(context);
+            pt.CreateSessionState(asp_session.Contents);
             
             // persist context in base
-            SessionService.PersistSession(context, sess);
+            asp_session.PersistSession();
             
             // test abandon
-            SessionService.Abandon(context);
+            asp_session.Abandon(context);
             var sessloaded = persist.LoadSession(key);
             Assert.IsNull(sessloaded);
         }

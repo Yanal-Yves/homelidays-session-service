@@ -2,15 +2,15 @@
 using Homelidays.Web.SessionService;
 
 /// <summary>
-/// This page test the AbandonSession method.
+/// Test page of the Abandon method of the AspSessionService.
 /// </summary>
 public partial class SessionService_TestSessionAbandon : SessionPage
 {
     /// <summary>
-    /// Standard Page_Load ASPX event.
+    /// Page load event.
     /// </summary>
-    /// <param name="sender">The current page</param>
-    /// <param name="e">Event Argument.</param>
+    /// <param name="sender">The loading page.</param>
+    /// <param name="e">event arg.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
         this.AbandonSession();

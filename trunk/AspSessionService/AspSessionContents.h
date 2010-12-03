@@ -53,9 +53,15 @@ private:
 	ContainerType dico;
 
 	/// Put all characters of a BSTR to lower case
-	void CAspSessionContents::BstrToLower(
+	void BstrToLower(
 		BSTR bstrString ///< [in] the bstr to lower case
-		);
+	);
+
+	/// Get the session id as a Guid usable for DB access
+	/// @return S_OK if succeed any other value else
+	HRESULT GetSessionId(
+		_variant_t& vtSessionId ///< [in] The session Id as a Guid
+	);
 
 public:
 	CAspSessionContents();

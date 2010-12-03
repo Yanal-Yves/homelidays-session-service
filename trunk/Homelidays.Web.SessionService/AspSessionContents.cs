@@ -22,7 +22,7 @@ namespace Homelidays.Web.SessionService
     /// <summary>
     /// The session state collection
     /// </summary>
-    public class SessionState : Dictionary<string, object>, ISessionState
+    public class AspSessionContents : Dictionary<string, object>, IAspSessionContents
     {
         /// <summary>
         /// Session Timeout
@@ -30,11 +30,11 @@ namespace Homelidays.Web.SessionService
         private int timeOut;
 
         /// <summary>
-        /// Initializes a new instance of the SessionState class. 
+        /// Initializes a new instance of the AspSessionContents class.
         /// This constructor is defined explicitly because we want to be sure to have it
         /// even if in the future we add other constructors
         /// </summary>
-        public SessionState()
+        public AspSessionContents()
             : base()
         {
         }

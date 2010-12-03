@@ -661,3 +661,143 @@ HRESULT AspSessionPersistence::SetSession(
 
 	return hr;
 }
+
+/// Refresh the session into the storage
+/// @return S_OK in case of success, any other value if operation failled
+HRESULT AspSessionPersistence::RefreshSession(
+	_variant_t vtGuid ///< [in] Session Id (GUID as a string) of the session to refresh
+	)
+{
+	HRESULT hr;
+
+	Partition partition;
+	hr = PartitionResolver::GetPartitionn(vtGuid, partition);
+	if (FAILED(hr))
+	{
+		Logging::Logger::GetCurrent()->WriteInfo(L"Partition Resolver error. unable to get partition \r\n");
+		return hr;
+	}
+
+	// Create ADO Object.
+	ADODB::_ConnectionPtr connection;
+	ADODB::_CommandPtr command;
+	ADODB::_ParameterPtr parameter;
+	ADODB::_RecordsetPtr recordset;
+
+	_bstr_t bstrCommandText;
+	bstrCommandText = L"UPDATE /*20101123-194816-YFA*/ dbo.[Session] SET LastAccessed = GETUTCDATE() WHERE SessionId=?";
+	
+	try
+	{
+		// Create Connection Object.
+		hr = connection.CreateInstance(__uuidof(ADODB::Connection));
+		TESTHR(hr);
+
+		connection->CursorLocation = ADODB::adUseClient;
+		hr = connection->Open(
+			partition.bstrPartition,
+			partition.bstrLogin,
+			partition.bstrPassword,
+			ADODB::adConnectUnspecified);
+		TESTHR(hr);
+
+		// Create Command Object.
+		hr = command.CreateInstance(__uuidof(ADODB::Command));
+		TESTHR(hr);
+
+		command->ActiveConnection = connection;
+		command->CommandType = ADODB::adCmdText;
+		command->CommandText = bstrCommandText;
+		
+		// Add the "SessionId" parameter
+		parameter = command->CreateParameter(
+			_bstr_t(L"SessionId"),
+			ADODB::adVarWChar,
+			ADODB::adParamInput,
+			AspSessionPersistence::GuidNumberOfDigits,
+			vtGuid);
+		hr = command->Parameters->Append(parameter);
+		TESTHR(hr);
+		
+		// Execute the request
+		_variant_t vtEmpty (DISP_E_PARAMNOTFOUND, VT_ERROR);
+		_variant_t recordAffected;
+		recordset = command->Execute(&recordAffected, &vtEmpty, ADODB::adCmdText);
+	}
+	catch (_com_error &e)
+	{
+		LogProviderError(connection, bstrCommandText);
+		_bstr_t bstrError(e.Error());
+		_bstr_t bstrErrorMessage(e.ErrorMessage());
+		_bstr_t bstrSource(e.Source());
+		_bstr_t bstrDescription(e.Description());
+		// Printf pour l'application de test le LogProviderError ci-dessus permet l'écriture dans le log
+		printf(
+			"\n Error : %s \n ErrorMessage : %s \n Source : %s \n Description : %s \n",
+			(LPCSTR)bstrError,
+			(LPCSTR)bstrErrorMessage,
+			(LPCSTR)bstrSource,
+			(LPCSTR)bstrDescription);
+		hr = E_FAIL;
+		PartitionResolver::ResetConf();
+	}
+	catch (...)
+	{
+		printf("\n UNKNOWN ERROR \n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"SessionPersistence.RefreshSession Unknown error \r\n");
+	}
+
+	// Release ADO objects
+	if (recordset)
+	{
+		if (recordset->State == ADODB::adStateOpen)
+		{
+			HRESULT hr2;
+			hr2 = recordset->Close();
+			if (FAILED(hr2))
+			{
+				if (hr == S_OK)
+				{ // if it is the first error in the method
+					hr = hr2;
+				}
+
+				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoRecordset error \r\n");
+			}
+		}
+
+		recordset.Release();
+	}
+
+	if (parameter)
+	{
+		parameter.Release();
+	}
+
+	if (command)
+	{
+		command.Release();
+	}
+	
+	// On détruit la connexion ADO
+	if (connection)
+	{
+		if (connection->State == ADODB::adStateOpen)
+		{
+			HRESULT hr2;
+			hr2 = connection->Close();
+			if (FAILED(hr2))
+			{
+				if (hr == S_OK)
+				{ // if it is the first error in the method
+					hr = hr2;
+				}
+
+				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoConnection error \r\n");
+			}
+		}
+
+		connection.Release();
+	}
+
+	return hr;
+}

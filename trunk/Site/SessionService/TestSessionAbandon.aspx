@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  --%>
- <%@ Page Language="C#" AutoEventWireup="true" CodeFile="TestSessionAbandon.aspx.cs" Inherits="SessionService_TestSessionAbandon" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TestSessionAbandon.aspx.cs" Inherits="SessionService_TestSessionAbandon" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 

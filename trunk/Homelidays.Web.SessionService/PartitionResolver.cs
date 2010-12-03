@@ -45,6 +45,34 @@ namespace Homelidays.Web.SessionService
         }
 
         /// <summary>
+        /// Charge la configuration depuis un fichier xml
+        /// </summary>
+        private void LoadConf()
+        {
+            if (!isConfLoaded)
+            {
+                string currentDir = FileUtility.GetDirectory();
+                XDocument doc = XDocument.Load(Path.Combine(currentDir, "AspSessionServiceConfigAdo.Net.xml"));
+                if (doc != null)
+                {
+                    var query = from conf in doc.Element("Partitions").Elements("Partition")
+                                select conf.Element("ConnectionString").Value
+                                + "User Id=" + conf.Element("Login").Value
+                                + ";Password=" + conf.Element("Password").Value;
+
+                    partitionsConnectionStrings = query.ToArray();
+                }
+                else
+                {
+                    Loggers.Logger.Error("Unable to load conf");
+                }
+
+                AspSessionPersistence.CreateTables(partitionsConnectionStrings[0]);
+                isConfLoaded = true;
+            }
+        }
+
+        /// <summary>
         /// reset la configuration du partitionresolver
         /// </summary>
         public void ResetConf()
@@ -68,34 +96,6 @@ namespace Homelidays.Web.SessionService
             // int partitionID = Math.Abs(session_id.GetHashCode()) % this.partitionsConnectionStrings.Length;
             int partitionID = 0;
             return partitionsConnectionStrings[partitionID];
-        }
-
-        /// <summary>
-        /// Charge la configuration depuis un fichier xml
-        /// </summary>
-        private void LoadConf()
-        {
-            if (!isConfLoaded)
-            {
-                string currentDir = FileUtility.GetDirectory();
-                XDocument doc = XDocument.Load(Path.Combine(currentDir, "AspSessionServiceConfigAdo.Net.xml"));
-                if (doc != null)
-                {
-                    var query = from conf in doc.Element("Partitions").Elements("Partition")
-                                select conf.Element("ConnectionString").Value
-                                + "User Id=" + conf.Element("Login").Value
-                                + ";Password=" + conf.Element("Password").Value;
-
-                    partitionsConnectionStrings = query.ToArray();
-                }
-                else
-                {
-                    Loggers.Logger.Error("Unable to load conf");
-                }
-
-                SessionPersistence.CreateTables(partitionsConnectionStrings[0]);
-                isConfLoaded = true;
-            }
         }
     }
 }

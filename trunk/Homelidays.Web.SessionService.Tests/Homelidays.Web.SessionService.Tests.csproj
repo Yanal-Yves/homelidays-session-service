@@ -52,10 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettingManagerTest.cs" />
+    <Compile Include="AspSessionPersistenceTest.cs" />
+    <Compile Include="AspSessionTest.cs" />
     <Compile Include="PartitionResolverTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionPersistenceTest.cs" />
-    <Compile Include="SessionServiceTest.cs" />
+    <Compile Include="ReflectionUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Homelidays.Web.SessionService\Homelidays.Web.SessionService.csproj">

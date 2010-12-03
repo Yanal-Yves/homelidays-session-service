@@ -16,5 +16,5 @@
 %>
 <!--#include virtual="/SessionService/Test.asp"-->
 <%
-	Session.Contents.RemoveAll
+	AspSessionService.Contents.RemoveAll
 %>

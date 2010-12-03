@@ -6,16 +6,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 /// <summary>
-/// Test page that hack the session cookie to make sure that the Session Service remains stable even someone
-/// changes the session cookie.
+/// In this test page the session id is hacked. The goal is to test that the session service will stay stable even if its input are not the one expected.
 /// </summary>
 public partial class SessionService_HackCookie : System.Web.UI.Page
 {
     /// <summary>
-    /// Standard Page_Load ASPX event.
+    /// Page load event.
     /// </summary>
-    /// <param name="sender">The current page</param>
-    /// <param name="e">Event Argument.</param>
+    /// <param name="sender">The loading page.</param>
+    /// <param name="e">event arg.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
         for (int i = 0; i < Request.Cookies.Count; i++)

@@ -21,11 +21,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Homelidays.Web.SessionStateAspAspNet")]
+[assembly: AssemblyTitle("Homelidays.Web.SessionService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Homelidays")]
-[assembly: AssemblyProduct("Homelidays.Web.SessionStateAspAspNet")]
+[assembly: AssemblyProduct("Homelidays.Web.SessionService")]
 [assembly: AssemblyCopyright("Copyright © Homelidays 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

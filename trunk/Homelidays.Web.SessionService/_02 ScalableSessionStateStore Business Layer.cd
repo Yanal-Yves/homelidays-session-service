@@ -15,33 +15,33 @@
       <FileName>AppSettingsManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Homelidays.Web.SessionService.SessionState">
-    <Position X="5.25" Y="0.5" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAIACAgCAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SessionState.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Homelidays.Web.SessionService.SessionService">
-    <Position X="0.5" Y="1.75" Width="4.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACIAAAACAAAAAAAAEAAAAAAAAAAAAIAAAAgAAA=</HashCode>
-      <FileName>SessionService.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Homelidays.Web.SessionService.SessionPage">
-    <Position X="5.25" Y="4.25" Width="4.25" />
+    <Position X="6.5" Y="4.25" Width="5.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAEAAAAAAAgAEAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gAAAAAAAAAAAAAAAgAEAAAASEAACABAAAAAIAAAAAAA=</HashCode>
       <FileName>SessionPage.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Homelidays.Web.SessionService.ISessionState">
-    <Position X="0.5" Y="0.5" Width="2.25" />
+  <Class Name="Homelidays.Web.SessionService.AspSession">
+    <Position X="0.5" Y="0.5" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AEACAACIEAAQCAAAAAgAAEAIAAAAAAAAAAAAAABgAAA=</HashCode>
+      <FileName>AspSession.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Homelidays.Web.SessionService.AspSessionContents">
+    <Position X="6.75" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAIACAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AspSessionContents.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Homelidays.Web.SessionService.IAspSessionContents">
+    <Position X="10" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ISessionState.cs</FileName>
+      <FileName>IAspSessionContents.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

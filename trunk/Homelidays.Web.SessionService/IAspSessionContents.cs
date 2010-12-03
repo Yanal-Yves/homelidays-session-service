@@ -23,7 +23,7 @@ namespace Homelidays.Web.SessionService
     /// <summary>
     /// The session state collection interface
     /// </summary>
-    public interface ISessionState
+    public interface IAspSessionContents
     {
         /// <summary>
         /// Gets or sets the timeout of the Session

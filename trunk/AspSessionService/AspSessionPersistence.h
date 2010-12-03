@@ -58,6 +58,12 @@ public:
 		_variant_t Guid ///< [in] Session Id (GUID as a string)
 		);
 
+	/// Refresh the session into the storage
+	/// @return S_OK in case of success, any other value if operation failled
+	HRESULT RefreshSession(
+		_variant_t vtGuid ///< [in] Session Id (GUID as a string) of the session to refresh
+		);
+
 	/// Create tables dynamically in the database if they do not exist
 	static HRESULT CreateTables(
 		Partition _partition ///< [in] Partition (SQL Connexion string) where to create the tables
