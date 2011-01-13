@@ -13,6 +13,6 @@ public partial class SessionService_TestSessionAbandon : SessionPage
     /// <param name="e">event arg.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.AbandonSession();
+        this.Session.Abandon();
     }
 }
