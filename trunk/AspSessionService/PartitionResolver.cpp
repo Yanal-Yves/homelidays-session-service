@@ -72,7 +72,7 @@ HRESULT PartitionResolver::GetPartitionn(
 	bstrPartition = resolver->lpPartitions[0];
 	if(!bstrPartition.bIsInitialized)
 	{ // Si le Partition Resolver n'est pas initialisé
-		//Création des tables à l'intérieur de la partition
+		// Création des tables à l'intérieur de la partition
 		hr=AspSessionPersistence::CreateTables(bstrPartition);
 		if(hr== S_OK)
 		{

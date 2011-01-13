@@ -23,7 +23,7 @@ namespace Homelidays.Web.SessionService.Tests
             Type type = objectWithNonPublic.GetType();
             MethodInfo method_info = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
             var return_object = method_info.Invoke(objectWithNonPublic, parameters);
-         
+
             return return_object;
         }
 

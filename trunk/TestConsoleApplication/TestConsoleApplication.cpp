@@ -738,7 +738,7 @@ DWORD WINAPI SessionPersistenceTestThreadProc(
 
 	for(;;)
 	{
-		hr= SessPersistence.SetSession(vtGuid, Timeout, Data);
+		hr = SessPersistence.SetSession(vtGuid, Timeout, Data);
 		hr = SessPersistence.GetSession(vtGuid, LastAccessed, Timeout, Data);
 		hr = SessPersistence.DeleteSession(vtGuid);
 		hr = SessPersistence.RefreshSession(vtGuid);
@@ -746,7 +746,7 @@ DWORD WINAPI SessionPersistenceTestThreadProc(
 
 	// Uninitialize COM
 	CoUninitialize();
-	
+
 	return 0;
 }
 

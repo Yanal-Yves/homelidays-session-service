@@ -502,7 +502,7 @@ HRESULT AspSessionPersistence::SetSession(
 	hr = PartitionResolver::GetPartitionn(vtGuid, partition);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Partition Resolver error. unable to get partition \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"Partition Resolver error. Unable to get partition \r\n");
 		return hr;
 	}
 
