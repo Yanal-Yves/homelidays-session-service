@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?><ItemProperties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Properties><Property><Name>svn:ignore</Name><Value>*.user
+*.aps
+</Value></Property><Property><Name>svn:ignore</Name><Value>*.user
+*.aps
+Debug
+Release
+x64
+AspSessionService_i.c
+AspSessionService_i.h
+AspSessionService_p.c
+</Value></Property><Property><Name>svn:ignore</Name><Value>*.user
+*.aps
+Debug
+Release
+x64
+AspSessionService_i.c
+AspSessionService_i.h
+AspSessionService_p.c
+StyleCop.Cache
+</Value></Property></Properties></ItemProperties>
