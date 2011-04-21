@@ -39,17 +39,17 @@ namespace Homelidays.Web.SessionService
         /// <summary>
         /// Request that just touch the session state by updating the last access date.
         /// </summary>
-        private const string UpdateLastAccessedStatement = "UPDATE /*07614B4A-4224-492e-88DE-656DB7F876F3*/ [Session] SET LastAccessed = GETUTCDATE() WHERE SessionId = @Id";
+        private const string UpdateLastAccessedStatement = "UPDATE /*07614B4A-4224-492e-88DE-656DB7F876F3*/ [Session] SET LastAccessed = GETUTCDATE() WHERE SessionId=@Id";
 
         /// <summary>
-        /// Request that insert a new session state into the database
+        /// Request that insert a new session state into the database. The SQL statement is not taged as it is always used with the <see cref="DeleteStatement" /> SQL
         /// </summary>
-        private const string InsertStatement = "INSERT /*CC70CCEA-9D49-49b9-B207-EFBBA29F093D*/ INTO dbo.Session(SessionId,LastAccessed,SessionTimeOut,Data) VALUES (@Id,GETUTCDATE() ,@SessionTimeOut,@Data)";
+        private const string InsertStatement = "INSERT INTO dbo.Session(SessionId,LastAccessed,SessionTimeOut,Data) VALUES (@Id,GETUTCDATE(),@SessionTimeOut,@Data);";
 
         /// <summary>
         /// delete a session state into the database
         /// </summary>
-        private const string DeleteStatement = "DELETE /*4080907D-4E44-41e6-A036-4B7CB41146D5*/ FROM dbo.Session WHERE SessionId=@Id ; ";
+        private const string DeleteStatement = "DELETE /*4080907D-4E44-41e6-A036-4B7CB41146D5*/ FROM dbo.Session WHERE SessionId=@Id;";
 
         /// <summary>
         /// Initializes a new instance of the AspSessionPersistence class.
@@ -573,8 +573,10 @@ namespace Homelidays.Web.SessionService
                 using (SqlCommand saveCmd = new SqlCommand())
                 {
                     saveCmd.Connection = conn;
-                    saveCmd.CommandText = DeleteStatement;
+                    saveCmd.CommandText = "BEGIN TRAN;";
+                    saveCmd.CommandText += DeleteStatement;
                     saveCmd.CommandText += InsertStatement;
+                    saveCmd.CommandText += "COMMIT";
 
                     saveCmd.Parameters.AddWithValue("@SessionTimeOut", sessionTimeOut);
                     saveCmd.Parameters.AddWithValue("@Data", this.Serialize(session));

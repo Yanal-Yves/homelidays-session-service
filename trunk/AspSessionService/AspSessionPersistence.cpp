@@ -514,9 +514,9 @@ HRESULT AspSessionPersistence::SetSession(
 	ADODB::_RecordsetPtr recordset;
 
 	_bstr_t bstrCommandText;
-	bstrCommandText = L"DELETE /*20100722-190016-YFA*/ FROM dbo.Session WHERE SessionId=?;";
-	bstrCommandText += L"INSERT /*20100722-190017-YFA*/ INTO dbo.Session(SessionId,LastAccessed,SessionTimeOut,Data) VALUES (?,GETUTCDATE(),?,?)";
-	
+	bstrCommandText = L"BEGIN TRAN;DELETE /*20100722-190016-YFA*/ FROM dbo.Session WHERE SessionId=?;";
+	bstrCommandText += L"INSERT INTO dbo.Session(SessionId,LastAccessed,SessionTimeOut,Data) VALUES (?,GETUTCDATE(),?,?);COMMIT";
+
 	try
 	{
 		// Create Connection Object.

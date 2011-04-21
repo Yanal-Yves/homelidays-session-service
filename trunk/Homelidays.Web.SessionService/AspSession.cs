@@ -93,7 +93,6 @@ namespace Homelidays.Web.SessionService
             {
                 if (!this.isSessionInitialized)
                 {
-                    // TODO : que se passe-t-il si on est au unload ?
                     this.InitializeSession();
                     this.isSessionInitialized = true;
                 }
