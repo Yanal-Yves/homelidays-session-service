@@ -34,7 +34,7 @@ HRESULT FileUtility::GetModuleDirectory(
 	HMODULE hLibrary = GetModuleHandle(L"AspSessionService.dll");
 	if (hLibrary == NULL)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error  FileUtility::GetModuleDirectory GetModuleHandle failed (dll not loaded ?) \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError  FileUtility::GetModuleDirectory GetModuleHandle failed (dll not loaded ?) \r\n");
 		return E_FAIL;
 	}
 
@@ -42,7 +42,7 @@ HRESULT FileUtility::GetModuleDirectory(
 	DWORD dw = GetModuleFileName(hLibrary, wcPath, _MAX_PATH);
 	if (dw == 0)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error  FileUtility::GetModuleDirectory GetModuleFileName failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError  FileUtility::GetModuleDirectory GetModuleFileName failed \r\n");
 		return E_FAIL;
 	}
 

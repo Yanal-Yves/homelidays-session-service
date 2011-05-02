@@ -46,7 +46,7 @@ HRESULT AspSessionSerializer::SerializeSession(
 		hr = GenerateXmlItemNode(dico_iter, serializeDico);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSession Unable to generatexml itme node \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSession Unable to generatexml itme node \r\n");
 			return hr;
 		}
 	}
@@ -73,7 +73,7 @@ HRESULT AspSessionSerializer::GetNextCoord(
 
 	if (usDim < 1)
 	{ // the dimension of a safe array should be >=1
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer GetNextCoord the dimension of a safe array is <1 \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer GetNextCoord the dimension of a safe array is <1 \r\n");
 		hr = E_INVALIDARG;
 	}
 	else
@@ -84,7 +84,7 @@ HRESULT AspSessionSerializer::GetNextCoord(
 			if ((plCoord[i] < 0) || (psaBounds[lMaxIndex-i].cElements > lMaxValue))
 			{ // plCoord should not be negative and number of elements in the safearray should be handle by a signed long
 				// in order to be used by Microsoft Array Manaipulation function (ex : SafeArrayGetElement)
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer GetNextCoord plCoord is negative or number of elements in the safearray should are handle by a signed long \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer GetNextCoord plCoord is negative or number of elements in the safearray should are handle by a signed long \r\n");
 				hr = E_FAIL;
 			}
 			else
@@ -106,7 +106,7 @@ HRESULT AspSessionSerializer::GetNextCoord(
 
 	if (hr == E_FAIL)
 	{ // this should not happen because in all case the above code should set hr
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer GetNextCoord  this should not happen because in all case the above code should set hr \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer GetNextCoord  this should not happen because in all case the above code should set hr \r\n");
 	}
 
 	return hr;
@@ -155,7 +155,7 @@ HRESULT AspSessionSerializer::SerializeSourceArrayItem(
 	hr = AppendCoordAttribute(plTableCoord, xml, usDim);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSourceArrayItem AppendCoordAttribute failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSourceArrayItem AppendCoordAttribute failed \r\n");
 		return hr;
 	}
 
@@ -177,7 +177,7 @@ HRESULT AspSessionSerializer::SerializeSourceArrayItem(
 		if (hr != S_OK)
 		{ // We should get an element. We should not call SafeArrayGetElement if we reach the end of the table
 			delete [] plCoord;
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSourceArrayItem We should get an element. We should not call SafeArrayGetElement if we reach the end of the table \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSourceArrayItem We should get an element. We should not call SafeArrayGetElement if we reach the end of the table \r\n");
 			return hr;
 		}
 
@@ -197,7 +197,7 @@ HRESULT AspSessionSerializer::SerializeSourceArrayItem(
 			if (hr != S_OK)
 			{
 				delete [] plCoord;
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSourceArrayItem SerializeSourceArrayItem failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSourceArrayItem SerializeSourceArrayItem failed \r\n");
 				return hr;
 			}
 		}
@@ -213,7 +213,7 @@ HRESULT AspSessionSerializer::SerializeSourceArrayItem(
 					if (FAILED(hr))
 					{
 						delete [] plCoord;
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSourceArrayItem SerializeScriptingDictionary failed \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSourceArrayItem SerializeScriptingDictionary failed \r\n");
 						return hr;
 					}
 
@@ -222,7 +222,7 @@ HRESULT AspSessionSerializer::SerializeSourceArrayItem(
 					{
 						pScriptDico->Release();
 						delete [] plCoord;
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSourceArrayItem SerializeScriptingDictionary failed \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSourceArrayItem SerializeScriptingDictionary failed \r\n");
 						return hr;
 					}
 
@@ -245,7 +245,7 @@ HRESULT AspSessionSerializer::SerializeSourceArrayItem(
 			if (hr != S_OK)
 			{
 				delete [] plCoord;
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSourceArrayItem SerializeValueType failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSourceArrayItem SerializeValueType failed \r\n");
 				return hr;
 			}
 		}
@@ -254,7 +254,7 @@ HRESULT AspSessionSerializer::SerializeSourceArrayItem(
 		if (hr != S_OK && hr != S_FALSE)
 		{
 			delete [] plCoord;
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSourceArrayItem GetNextCoord failed \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSourceArrayItem GetNextCoord failed \r\n");
 			return hr;
 		}
 	}
@@ -295,7 +295,7 @@ HRESULT AspSessionSerializer::SerializeValueTypeInternal(
 		VT_BSTR);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueTypeInternal VariantInit failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueTypeInternal VariantInit failed \r\n");
 		return hr;
 	}
 
@@ -303,7 +303,7 @@ HRESULT AspSessionSerializer::SerializeValueTypeInternal(
 	hr = VariantClear(&dest);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueTypeInternal VariantClear failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueTypeInternal VariantClear failed \r\n");
 		return hr;
 	}
 
@@ -312,7 +312,7 @@ HRESULT AspSessionSerializer::SerializeValueTypeInternal(
 	hr = AppendCoordAttribute(plCoord, xml, usDim);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueTypeInternal AppendCoordAttribute failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueTypeInternal AppendCoordAttribute failed \r\n");
 		return hr;
 	}
 
@@ -337,7 +337,7 @@ HRESULT AspSessionSerializer::SerializeCoordinate(
 		err = _ltow_s(ulCurrentCoord, pwszCoord, NB_DIGIT_LONG, BASE_TEN);
 		if (err != 0)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeCoordinate Erroer Unexpected \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeCoordinate Erroer Unexpected \r\n");
 			return E_UNEXPECTED;
 		}
 
@@ -369,7 +369,7 @@ HRESULT AspSessionSerializer::AppendCoordAttribute(
 		hr = SerializeCoordinate(plCoord, usDim, strCoord);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer AppendCoordAttribute SerializeCoordinate failed \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer AppendCoordAttribute SerializeCoordinate failed \r\n");
 			return hr;
 		}
 
@@ -402,7 +402,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = AppendCoordAttribute(plCoord, xml, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_EMPTY AppendCoordAttribute failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_EMPTY AppendCoordAttribute failed \r\n");
 				return hr;
 			}
 
@@ -415,7 +415,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = AppendCoordAttribute(plCoord, xml, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_DATE AppendCoordAttribute failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_DATE AppendCoordAttribute failed \r\n");
 				return hr;
 			}
 
@@ -428,7 +428,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_I1 SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_I1 SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -438,7 +438,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_I2 SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_I2 SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -448,7 +448,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_I4 SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_I4 SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -458,7 +458,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_UI1 SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_UI1 SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -468,7 +468,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_UI2 SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_UI2 SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -478,7 +478,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_UI4 SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_UI4 SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -488,7 +488,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_INT SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_INT SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -498,7 +498,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_UINT SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_UINT SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -508,7 +508,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_DECIMAL SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_DECIMAL SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -518,7 +518,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_R4 SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_R4 SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -528,7 +528,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_R8 SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_R8 SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -538,7 +538,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_BOOL SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_BOOL SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -549,7 +549,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = AppendCoordAttribute(plCoord, xml, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_BSTR AppendCoordAttribute failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_BSTR AppendCoordAttribute failed \r\n");
 				return hr;
 			}
 			xml += L"><![CDATA[" + strString + + L"]]></Item>";
@@ -560,7 +560,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = SerializeValueTypeInternal(&value, typeName, xml, plCoord, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_CY SerializeValueTypeInternal failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_CY SerializeValueTypeInternal failed \r\n");
 				return hr;
 			}
 		} break;
@@ -571,7 +571,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 			hr = AppendCoordAttribute(plCoord, xml, usDim);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType VT_NULL AppendCoordAttribute failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType VT_NULL AppendCoordAttribute failed \r\n");
 				return hr;
 			}
 
@@ -581,7 +581,7 @@ HRESULT AspSessionSerializer::SerializeValueType(
 	default:
 		{
 			hr = E_UNEXPECTED;
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeValueType default Unexpected error \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeValueType default Unexpected error \r\n");
 			return hr;
 		} break;
 	}
@@ -616,7 +616,7 @@ HRESULT AspSessionSerializer::GenerateXmlItemNode(
 		hr = SerializeSourceArrayItem(key, *sourceArray, xml, NULL, 0);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer GenerateXmlItemNode SerializeSourceArrayItem failed \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer GenerateXmlItemNode SerializeSourceArrayItem failed \r\n");
 			return hr;
 		}
 	}
@@ -629,7 +629,7 @@ HRESULT AspSessionSerializer::GenerateXmlItemNode(
 			hr = SerializeNothing(key, xml, NULL, 0);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer GenerateXmlItemNode SerializeNothing failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer GenerateXmlItemNode SerializeNothing failed \r\n");
 				return hr;
 			}
 		}
@@ -641,7 +641,7 @@ HRESULT AspSessionSerializer::GenerateXmlItemNode(
 
 			if (FAILED(hr))
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer GenerateXmlItemNode QueryInterface failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer GenerateXmlItemNode QueryInterface failed \r\n");
 				return hr;
 			}
 
@@ -649,7 +649,7 @@ HRESULT AspSessionSerializer::GenerateXmlItemNode(
 			if (FAILED(hr))
 			{
 				pScriptDico->Release();
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer GenerateXmlItemNode SerializeScriptingDictionary failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer GenerateXmlItemNode SerializeScriptingDictionary failed \r\n");
 				return hr;
 			}
 
@@ -662,7 +662,7 @@ HRESULT AspSessionSerializer::GenerateXmlItemNode(
 		hr = SerializeValueType(key, value, xml, NULL, 0);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer GenerateXmlItemNode SerializeValueType failed \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer GenerateXmlItemNode SerializeValueType failed \r\n");
 			return hr;
 		}
 	}
@@ -688,7 +688,7 @@ HRESULT AspSessionSerializer::SerializeScriptingDictionary(
 	hr = AppendCoordAttribute(plCoord, xml, usDim);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeScriptingDictionary AppendCoordAttribute failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeScriptingDictionary AppendCoordAttribute failed \r\n");
 		return hr;
 	}
 
@@ -709,7 +709,7 @@ HRESULT AspSessionSerializer::SerializeScriptingDictionary(
 		hr = spEnum->Next(nBatchSize, &arrVariant[0], &nReturned);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeScriptingDictionary Next failed \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeScriptingDictionary Next failed \r\n");
 			return hr;
 		}
 
@@ -736,7 +736,7 @@ HRESULT AspSessionSerializer::SerializeScriptingDictionary(
 				hr = AspSessionSerializer::SerializeSourceArrayItem(item_key, *sourceArray, xml, NULL, 0);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeScriptingDictionary SerializeSourceArrayItem failed \r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeScriptingDictionary SerializeSourceArrayItem failed \r\n");
 					return hr;
 				}
 			}
@@ -751,7 +751,7 @@ HRESULT AspSessionSerializer::SerializeScriptingDictionary(
 						hr = variantValue.pdispVal->QueryInterface(__uuidof(Scripting::IDictionary), (void**)&pScriptDico);
 						if (FAILED(hr))
 						{
-							Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeScriptingDictionary SerializeScriptingDictionary failed \r\n");
+							Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeScriptingDictionary SerializeScriptingDictionary failed \r\n");
 							return hr;
 						}
 
@@ -759,7 +759,7 @@ HRESULT AspSessionSerializer::SerializeScriptingDictionary(
 						if (hr != S_OK)
 						{
 							pScriptDico->Release();
-							Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeScriptingDictionary SerializeScriptingDictionary failed \r\n");
+							Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeScriptingDictionary SerializeScriptingDictionary failed \r\n");
 							return hr;
 						}
 
@@ -781,7 +781,7 @@ HRESULT AspSessionSerializer::SerializeScriptingDictionary(
 				hr = SerializeValueType(item_key, variantValue, xml, NULL, 0);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeSourceArrayItem SerializeValueType failed \r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeSourceArrayItem SerializeValueType failed \r\n");
 					return hr;
 				}
 			}
@@ -791,7 +791,7 @@ HRESULT AspSessionSerializer::SerializeScriptingDictionary(
 			hr = VariantClear(&arrVariant[0]);
 			if (FAILED(hr))
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeScriptingDictionary VariantClear failed \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeScriptingDictionary VariantClear failed \r\n");
 				return hr;
 			}
 		}
@@ -823,7 +823,7 @@ HRESULT AspSessionSerializer::SerializeNothing(
 	hr = AppendCoordAttribute(plCoord, xml, usDim);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionSerializer SerializeScriptingDictionary AppendCoordAttribute failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionSerializer SerializeScriptingDictionary AppendCoordAttribute failed \r\n");
 		return hr;
 	}
 

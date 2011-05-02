@@ -39,7 +39,7 @@ HRESULT PartitionResolver::GetSingleton(PartitionResolver** ppSingleton)
 {
 	if (PartitionResolver::lpSingleton == NULL)
 	{ // The constructor should be called before the call of this method
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver::GetSingleton The constructor should be called before the call of this method \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver::GetSingleton The constructor should be called before the call of this method \r\n");
 		return E_FAIL;
 	}
 
@@ -62,7 +62,7 @@ HRESULT PartitionResolver::GetPartitionn(
 	hr = PartitionResolver::GetSingleton(&resolver);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver GetPartitionn GetSingleton failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver GetPartitionn GetSingleton failed \r\n");
 		return hr;
 	}
 
@@ -80,7 +80,7 @@ HRESULT PartitionResolver::GetPartitionn(
 		}
 		else
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver GetPartitionn CreateTables failed \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver GetPartitionn CreateTables failed \r\n");
 		}
 	}
 
@@ -100,14 +100,14 @@ HRESULT PartitionResolver::ResetConf()
 	hr = PartitionResolver::GetSingleton(&resolver);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver ResetConf GetSingleton failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver ResetConf GetSingleton failed \r\n");
 		return hr;
 	}
 
 	hr=resolver->LoadConf();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver GetPartitionn LoadConf failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver GetPartitionn LoadConf failed \r\n");
 		return hr;
 	}
 
@@ -123,7 +123,7 @@ HRESULT PartitionResolver::LoadConf()
 
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver LoadConf Unable to getmoduledirectory \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver LoadConf Unable to getmoduledirectory \r\n");
 		return hr;
 	}
 
@@ -138,7 +138,7 @@ HRESULT PartitionResolver::LoadConf()
 	}
 	else
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver LoadConf Unable to open file AspSessionServiceConfig.xml \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver LoadConf Unable to open file AspSessionServiceConfig.xml \r\n");
 	}
 
 	in.close();
@@ -151,7 +151,7 @@ HRESULT PartitionResolver::LoadConf()
 	hr =  XmlUtility::GetReader(vtXml, pReader, stream);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver LoadConf Unable to getreader for xml\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver LoadConf Unable to getreader for xml\r\n");
 		return hr;
 	}
 
@@ -170,7 +170,7 @@ HRESULT PartitionResolver::LoadConf()
 					{
 						pReader.Release();
 						stream.Release();
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver LoadConf Unable to GetLocalName \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver LoadConf Unable to GetLocalName \r\n");
 						return hr;
 					}
 
@@ -185,7 +185,7 @@ HRESULT PartitionResolver::LoadConf()
 					{
 						pReader.Release();
 						stream.Release();
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver LoadConf Unable to Extract the value from the XML \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver LoadConf Unable to Extract the value from the XML \r\n");
 						return hr;
 					}
 					
@@ -213,7 +213,7 @@ HRESULT PartitionResolver::LoadConf()
 					{
 						pReader.Release();
 						stream.Release();
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver LoadConf Unable to GetLocalName\r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver LoadConf Unable to GetLocalName\r\n");
 						return hr;
 					}
 
@@ -248,7 +248,7 @@ PartitionResolver::PartitionResolver(void)
 	hr = LoadConf();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error PartitionResolver Constructor LoadConf failed \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError PartitionResolver Constructor LoadConf failed \r\n");
 	}
 }
 

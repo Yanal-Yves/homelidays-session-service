@@ -69,7 +69,7 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
     	hr = DllRegisterServer();
     	if (FAILED(hr))
     	{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionService DllInstall DllREgisterServer failed \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionService DllInstall DllREgisterServer failed \r\n");
     		DllUnregisterServer();
     	}
     }

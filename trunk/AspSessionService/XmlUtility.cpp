@@ -32,7 +32,7 @@ HRESULT XmlUtility::GetReader(
 	hr = CreateStreamOnHGlobal(0, TRUE, &stream);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error XmlUtility::GetReader CreateStreamOnHGlobal failed\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError XmlUtility::GetReader CreateStreamOnHGlobal failed\r\n");
 		return hr;
 	}
 
@@ -48,7 +48,7 @@ HRESULT XmlUtility::GetReader(
 	if (hr != S_OK)
 	{ // Libération des ressources
 		stream.Release();
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error XmlUtility::GetReader stream->Seek failed\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError XmlUtility::GetReader stream->Seek failed\r\n");
 		return hr;
 	}
 
@@ -56,7 +56,7 @@ HRESULT XmlUtility::GetReader(
 	if (hr != S_OK)
 	{ // Libération des ressources
 		stream.Release();
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error XmlUtility::GetReader CreateXmlReader failed\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError XmlUtility::GetReader CreateXmlReader failed\r\n");
 		return hr;
 	}
 
@@ -65,7 +65,7 @@ HRESULT XmlUtility::GetReader(
 	{ // Libération des ressources
 		pReader.Release();
 		stream.Release();
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error XmlUtility::GetReader pReader->SetProperty failed\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError XmlUtility::GetReader pReader->SetProperty failed\r\n");
 		return hr;
 	}
 
@@ -74,7 +74,7 @@ HRESULT XmlUtility::GetReader(
 	{ // Libération des ressources
 		pReader.Release();
 		stream.Release();
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error XmlUtility::GetReader pReader->SetInput failed\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError XmlUtility::GetReader pReader->SetInput failed\r\n");
 		return hr;
 	}
 

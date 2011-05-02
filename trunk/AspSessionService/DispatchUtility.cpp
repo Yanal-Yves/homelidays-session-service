@@ -42,7 +42,7 @@ AutomationType DispatchUtility::GetAutomationType(
 		}
 		else
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error DispatchUtility GetAutomationType failed \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError DispatchUtility GetAutomationType failed \r\n");
 			type = NotAutomation;
 		}
 

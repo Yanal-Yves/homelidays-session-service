@@ -57,7 +57,7 @@ HRESULT CAspSession::GetASPObject(
 	hr = m_spObjectContext->QueryInterface(IID_IGetContextProperties, (void**) &pProps);
     if (FAILED(hr)) 
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession GetASPObject QueryInterface for IGetContextProperties\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession GetASPObject QueryInterface for IGetContextProperties\r\n");
 	}
 	else
 	{ // Get the ASP object
@@ -66,21 +66,21 @@ HRESULT CAspSession::GetASPObject(
 		hr = pProps->GetProperty(bsObject, &vtObject);
 		if (FAILED(hr)) 
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession GetASPObject IGetContextProperties::GetProperty\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession GetASPObject IGetContextProperties::GetProperty\r\n");
 		}
 		else
 		{ // Make VT_DISPATCH (should be no change)
 			hr = vtObject.ChangeType(VT_DISPATCH);
 			if (FAILED(hr)) 
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession GetASPObject The object does not have a dispatch interface\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession GetASPObject The object does not have a dispatch interface\r\n");
 			}
 			else
 			{ // Query for the requested interface
 				hr = vtObject.pdispVal->QueryInterface(iid, ppObj);
 				if (FAILED(hr)) 
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession GetASPObject The Response object does not support the requested interface\r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession GetASPObject The Response object does not support the requested interface\r\n");
 				}
 			}
 		}
@@ -131,7 +131,7 @@ STDMETHODIMP CAspSession::OnStartPage(
 	hr = CAspSessionContents::CreateInstance(&Contents);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession sur création de la collection de sesion en mémoire pour la durée de vie de la page\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession sur création de la collection de sesion en mémoire pour la durée de vie de la page\r\n");
 		m_piResponse->Release();
 		m_piRequest->Release();
 		m_spObjectContext.Release();
@@ -151,7 +151,7 @@ STDMETHODIMP CAspSession::OnStartPage(
 		hr = this->get_SessionID(&bstr_session_id);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession OnStartPage get_SessionID failed\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession OnStartPage get_SessionID failed\r\n");
 			Contents->Release();	
 			m_piResponse->Release();
 			m_piRequest->Release();
@@ -182,7 +182,7 @@ STDMETHODIMP CAspSession::OnEndPage()
 		hr = ((CAspSessionContents*)this->Contents)->PersistSession();
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession OnEndPage PersistSession\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession OnEndPage PersistSession\r\n");
 		}
 	}
 	else
@@ -191,7 +191,7 @@ STDMETHODIMP CAspSession::OnEndPage()
 		hr = get_SessionID(&bstrSessionId);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession OnEndPage unable to get sessionid\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession OnEndPage unable to get sessionid\r\n");
 		}
 		else
 		{
@@ -208,7 +208,7 @@ STDMETHODIMP CAspSession::OnEndPage()
 			hr = SessPersistence.DeleteSession(vtSessionId);
 			if (FAILED(hr))
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession OnEndPage unable to deletesession\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession OnEndPage unable to deletesession\r\n");
 			}
 			else
 			{
@@ -343,22 +343,22 @@ HRESULT CAspSession::ReadCookie(
 				}
 				else
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession ReadCookie spReadCookie->get_Item\r\n"); 
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession ReadCookie spReadCookie->get_Item\r\n"); 
 				}
 			}
 			else
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession ReadCookie vtCookieDict.pdispVal->QueryInterface\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession ReadCookie vtCookieDict.pdispVal->QueryInterface\r\n");
 			}
 		}
 		else
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession ReadCookie pDict->get_Item\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession ReadCookie pDict->get_Item\r\n");
 		}
 	}
 	else
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession  ReadCookie  m_piRequest->get_Cookies\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession  ReadCookie  m_piRequest->get_Cookies\r\n");
 	}
 
 	return hr;
@@ -404,20 +404,20 @@ HRESULT CAspSession::WriteCookie(
 				hr = pWriteCookie->put_Item(vtCookieKey, bstrCookieValue);
 				if (FAILED(hr))
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession WriteCookie pWriteCookie->put_Item\r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession WriteCookie pWriteCookie->put_Item\r\n");
 				}
 			}
 			else
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession WriteCookie vtCookieDict.pdispVal->QueryInterface\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession WriteCookie vtCookieDict.pdispVal->QueryInterface\r\n");
 			}
 		}
 		else
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession WriteCookie spDict->get_Item\r\n", this->m_piRequest);
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession WriteCookie spDict->get_Item\r\n", this->m_piRequest);
 			
 			CString msg;
-			msg += L"vtCookieName type is: [";
+			msg += L"\tvtCookieName type is: [";
 			CComVariant var_vt = (int)vtCookieName.vt;
 			CString str_vt(var_vt);
 			msg += str_vt + L"]\r\n";
@@ -461,7 +461,7 @@ HRESULT CAspSession::WriteCookie(
 	}
 	else
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession  WriteCookie  m_piRequest->get_Cookies\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession  WriteCookie  m_piRequest->get_Cookies\r\n");
 	}
 
 	return hr;
@@ -507,7 +507,7 @@ HRESULT CAspSession::SetSessionCookie()
 	hr = WriteCookie(bstrCookieName, bstrCookieKey, this->m_bstrSessionId);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession SetCookie WriteCookie SessionId\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession SetCookie WriteCookie SessionId\r\n");
 		return hr;
 	}
 
@@ -536,14 +536,14 @@ HRESULT CAspSession::GetSessionId(
 		hr = this->GenerateSessionId(pVal);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession  GetCookie  SetCookie\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession  GetCookie  SetCookie\r\n");
 		}
 		else
 		{ // Write the cookie to the browser
 			hr = this->SetSessionCookie();
 			if (FAILED(hr))
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to SetCookie\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent PersistSession unable to SetCookie\r\n");
 				return hr;
 			}
 		}
@@ -567,7 +567,7 @@ STDMETHODIMP CAspSession::get_SessionID(
 		hr = this->GetSessionId(&m_bstrSessionId);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSession get_SessionID GetCookie\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession get_SessionID GetCookie\r\n");
 			return E_FAIL;
 		}
 	}
@@ -596,7 +596,7 @@ STDMETHODIMP CAspSession::get_Timeout(
 	HRESULT hr = ((CAspSessionContents*)this->Contents)->InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error CAspSession Abandon unable to intialize component\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError CAspSession Abandon unable to intialize component\r\n");
 		return hr;
 	}
 
@@ -614,7 +614,7 @@ STDMETHODIMP CAspSession::put_Timeout(
 	HRESULT hr = ((CAspSessionContents*)this->Contents)->InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error CAspSession Abandon unable to intialize component\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError CAspSession Abandon unable to intialize component\r\n");
 		return hr;
 	}
 

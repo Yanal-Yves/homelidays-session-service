@@ -27,38 +27,55 @@
 
 using namespace std;
 
-inline void TESTHR(HRESULT x)
+/// Raise a _com_issue_error exception if the provided HRESULT fails.
+inline void TESTHR(
+	HRESULT hr ///< [in] HRESULT to test.
+	)
 {
-	if (FAILED(x))
+	if (FAILED(hr))
 	{
-		_com_issue_error(x);
+		_com_issue_error(hr);
 	}
 };
 
 /// Log Provider Errors from Connection object.
 void AspSessionPersistence::LogProviderError(
-	ADODB::_ConnectionPtr pConnection, // Current connection objects
-	_bstr_t bstrCommandText // The SQL command text that failled
+	_com_error &e, ///< [in] Current exception
+	ADODB::_ConnectionPtr pConnection, ///< [in] Current connection objects
+	_bstr_t bstrCommandText ///< [in] The SQL command text that failled
 	)
 {
+	_bstr_t bstrError(e.Error());
+	_bstr_t bstrErrorMessage(e.ErrorMessage());
+	_bstr_t bstrSource(e.Source());
+	_bstr_t bstrDescription(e.Description());
+
+	Logging::Logger::GetCurrent()->WriteInfo(
+		L"\tError : " +
+		bstrError +
+		L"\r\n\tErrorMessage : " +
+		bstrErrorMessage +
+		L"\r\n\tSource : " +
+		bstrSource +
+		L"\r\n\tDescription : " +
+		bstrDescription +
+		L"\r\n");
+
 	ADODB::ErrorPtr pErr = NULL; // pErr is a record object in the Connection's Error collection.
 	long nCount = 0;
 	long i = 0;
 
-	if (pConnection->Errors->Count > 0)
+	if (pConnection != NULL)
 	{
-		nCount = pConnection->Errors->Count;
-
-		for (i = 0 ; i < nCount ; i++)
+		if (pConnection->Errors->Count > 0)
 		{
-			pErr = pConnection->Errors->GetItem(i);
-			
-			Logging::Logger::GetCurrent()->WriteInfo("Ado Error : " + pErr->Description + " Query: " + bstrCommandText +"\r\n");
-			printf(
-			"Error number: %x\n Error Description: %s\n Query: %s\n",
-			pErr->Number,
-			(LPCSTR) pErr->Description,
-			(LPCSTR) bstrCommandText);
+			nCount = pConnection->Errors->Count;
+
+			for (i = 0 ; i < nCount ; i++)
+			{
+				pErr = pConnection->Errors->GetItem(i);
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tADO Error: " + pErr->Description + L"\r\n\tQuery: " + bstrCommandText + L"\r\n");
+			}
 		}
 	}
 }
@@ -68,22 +85,23 @@ HRESULT AspSessionPersistence::CreateTables(
 	Partition _partition ///< [in] Partition (SQL Connexion string) where to create the tables
 	)
 {
-	HRESULT hr=S_OK;
+	HRESULT hr = S_OK;
+
 	CString cstrModulePath;
 	hr = FileUtility::GetModuleDirectory(cstrModulePath);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error on retrieving module directory\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError on retrieving module directory\r\n");
 	}
 
 	cstrModulePath.Append(L"Createtables.sql");
-	//On récupére le script de création de table depuis un fichier
+	// On récupére le script de création de table depuis un fichier
 	string s, line;
 	
-	ifstream in(cstrModulePath); //open the file
+	ifstream in(cstrModulePath); // open the file
 	if (in.bad())
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"File access error : CreateTables.sql  \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tFile access error : CreateTables.sql  \r\n");
 	}
 	else
 	{
@@ -128,24 +146,12 @@ HRESULT AspSessionPersistence::CreateTables(
 	}
 	catch (_com_error &e)
 	{
-		LogProviderError(connection, bstrCommandText);
-		_bstr_t bstrError(e.Error());
-		_bstr_t bstrErrorMessage(e.ErrorMessage());
-		_bstr_t bstrSource(e.Source());
-		_bstr_t bstrDescription(e.Description());
-		// Printf pour l'application de test le LogProviderError ci-dessus permet l'écriture dans le log
-		printf(
-			"\n Error : %s \n ErrorMessage : %s \n Source : %s \n Description : %s \n",
-			(LPCSTR)bstrError,
-			(LPCSTR)bstrErrorMessage,
-			(LPCSTR)bstrSource,
-			(LPCSTR)bstrDescription);
-		hr = E_FAIL;
+		hr = e.Error();
+		LogProviderError(e, connection, bstrCommandText);
 	}
 	catch (...)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"SessionPersistence.CreateTable Unknown error \r\n");
-		printf("\n UNKNOWN ERROR \n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tSessionPersistence.CreateTable Unknown error \r\n");
 	}
 
 	// Release ADO objects
@@ -161,8 +167,8 @@ HRESULT AspSessionPersistence::CreateTables(
 				{ // if it is the first error in the method
 					hr = hr2;
 				}
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoRecordset error \r\n");
 
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoRecordset error \r\n");
 			}
 		}
 
@@ -187,13 +193,14 @@ HRESULT AspSessionPersistence::CreateTables(
 				{ // if it is the first error in the method
 					hr = hr2;
 				}
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoConnection error \r\n");
-				
+
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoConnection error \r\n");
 			}
 		}
 
 		connection.Release();
 	}
+
 	return hr;
 }
 /// Delete the session from the storage Happens where session.abandon is called
@@ -202,13 +209,13 @@ HRESULT AspSessionPersistence::DeleteSession(
 	_variant_t vtGuid ///< [in] Session Id (GUID as a string)
 	)
 {
-	HRESULT hr=S_OK;
+	HRESULT hr;
 
 	Partition partition;
 	hr = PartitionResolver::GetPartitionn(vtGuid, partition);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Partition Resolver error. unable to get partition \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tPartition Resolver error. unable to get partition \r\n");
 		return hr;
 	}
 
@@ -260,25 +267,13 @@ HRESULT AspSessionPersistence::DeleteSession(
 	}
 	catch (_com_error &e)
 	{
-		LogProviderError(connection, bstrCommandText);
-		_bstr_t bstrError(e.Error());
-		_bstr_t bstrErrorMessage(e.ErrorMessage());
-		_bstr_t bstrSource(e.Source());
-		_bstr_t bstrDescription(e.Description());
-		// Printf pour l'application de test le LogProviderError ci-dessus permet l'écriture dans le log
-		printf(
-			"\n Error : %s \n ErrorMessage : %s \n Source : %s \n Description : %s \n",
-			(LPCSTR)bstrError,
-			(LPCSTR)bstrErrorMessage,
-			(LPCSTR)bstrSource,
-			(LPCSTR)bstrDescription);
-		hr = E_FAIL;
+		hr = e.Error();
+		LogProviderError(e, connection, bstrCommandText);
 		PartitionResolver::ResetConf();
 	}
 	catch (...)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"SessionPersistence.DeleteSession Unknown error \r\n");
-		printf("\n UNKNOWN ERROR \n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tSessionPersistence.DeleteSession Unknown error \r\n");
 	}
 
 	// Release ADO objects
@@ -295,7 +290,7 @@ HRESULT AspSessionPersistence::DeleteSession(
 					hr = hr2;
 				}
 
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoRecordset error \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoRecordset error \r\n");
 			}
 		}
 
@@ -326,7 +321,7 @@ HRESULT AspSessionPersistence::DeleteSession(
 					hr = hr2;
 				}
 
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoConnection error \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoConnection error \r\n");
 			}
 		}
 
@@ -334,7 +329,6 @@ HRESULT AspSessionPersistence::DeleteSession(
 	}
 
 	return hr;
-
 }
 
 /// Get the session from the storage
@@ -346,13 +340,13 @@ HRESULT AspSessionPersistence::GetSession(
 	_variant_t &Data ///< [out] Session data
 	)
 {
-	HRESULT hr=S_OK;
+	HRESULT hr;
 
 	Partition partition;
 	hr = PartitionResolver::GetPartitionn(vtGuid, partition);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Partition Resolver error. unable to get partition \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tPartition Resolver error. unable to get partition \r\n");
 		return hr;
 	}
 	
@@ -412,25 +406,13 @@ HRESULT AspSessionPersistence::GetSession(
 	}
 	catch (_com_error &e)
 	{
-		LogProviderError(connection, bstrCommandText);
-		_bstr_t bstrError(e.Error());
-		_bstr_t bstrErrorMessage(e.ErrorMessage());
-		_bstr_t bstrSource(e.Source());
-		_bstr_t bstrDescription(e.Description());
-		// Printf pour l'application de test le LogProviderError ci-dessus permet l'écriture dans le log
-		printf(
-			"\n Error : %s \n ErrorMessage : %s \n Source : %s \n Description : %s \n",
-			(LPCSTR)bstrError,
-			(LPCSTR)bstrErrorMessage,
-			(LPCSTR)bstrSource,
-			(LPCSTR)bstrDescription);
-		hr = E_FAIL;
+		hr = e.Error();
+		LogProviderError(e, connection, bstrCommandText);
 		PartitionResolver::ResetConf();
 	}
 	catch (...)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"SessionPersistence.GetSession Unknown error \r\n");
-		printf("\n UNKNOWN ERROR \n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tSessionPersistence.GetSession Unknown error \r\n");
 	}
 
 	// Release ADO objects
@@ -447,7 +429,7 @@ HRESULT AspSessionPersistence::GetSession(
 					hr = hr2;
 				}
 
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoRecordset error \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoRecordset error \r\n");
 			}
 		}
 
@@ -478,7 +460,7 @@ HRESULT AspSessionPersistence::GetSession(
 					hr = hr2;
 				}
 
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoConnection error \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoConnection error \r\n");
 			}
 		}
 
@@ -502,7 +484,7 @@ HRESULT AspSessionPersistence::SetSession(
 	hr = PartitionResolver::GetPartitionn(vtGuid, partition);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Partition Resolver error. Unable to get partition \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tPartition Resolver error. Unable to get partition \r\n");
 		return hr;
 	}
 
@@ -581,25 +563,13 @@ HRESULT AspSessionPersistence::SetSession(
 	}
 	catch (_com_error &e)
 	{
-		LogProviderError(connection, bstrCommandText);
-		_bstr_t bstrError(e.Error());
-		_bstr_t bstrErrorMessage(e.ErrorMessage());
-		_bstr_t bstrSource(e.Source());
-		_bstr_t bstrDescription(e.Description());
-		// Printf pour l'application de test le LogProviderError ci-dessus permet l'écriture dans le log
-		printf(
-			"\n Error : %s \n ErrorMessage : %s \n Source : %s \n Description : %s \n",
-			(LPCSTR)bstrError,
-			(LPCSTR)bstrErrorMessage,
-			(LPCSTR)bstrSource,
-			(LPCSTR)bstrDescription);
-		hr = E_FAIL;
+		hr = e.Error();
+		LogProviderError(e, connection, bstrCommandText);
 		PartitionResolver::ResetConf();
 	}
 	catch (...)
 	{
-		printf("\n UNKNOWN ERROR \n");
-		Logging::Logger::GetCurrent()->WriteInfo(L"SessionPersistence.SetSession Unknown error \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tSessionPersistence.SetSession Unknown error \r\n");
 	}
 
 	// Release ADO objects
@@ -616,7 +586,7 @@ HRESULT AspSessionPersistence::SetSession(
 					hr = hr2;
 				}
 
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoRecordset error \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoRecordset error \r\n");
 			}
 		}
 
@@ -652,7 +622,7 @@ HRESULT AspSessionPersistence::SetSession(
 					hr = hr2;
 				}
 
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoConnection error \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoConnection error \r\n");
 			}
 		}
 
@@ -674,7 +644,7 @@ HRESULT AspSessionPersistence::RefreshSession(
 	hr = PartitionResolver::GetPartitionn(vtGuid, partition);
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Partition Resolver error. unable to get partition \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tPartition Resolver error. unable to get partition \r\n");
 		return hr;
 	}
 
@@ -726,25 +696,13 @@ HRESULT AspSessionPersistence::RefreshSession(
 	}
 	catch (_com_error &e)
 	{
-		LogProviderError(connection, bstrCommandText);
-		_bstr_t bstrError(e.Error());
-		_bstr_t bstrErrorMessage(e.ErrorMessage());
-		_bstr_t bstrSource(e.Source());
-		_bstr_t bstrDescription(e.Description());
-		// Printf pour l'application de test le LogProviderError ci-dessus permet l'écriture dans le log
-		printf(
-			"\n Error : %s \n ErrorMessage : %s \n Source : %s \n Description : %s \n",
-			(LPCSTR)bstrError,
-			(LPCSTR)bstrErrorMessage,
-			(LPCSTR)bstrSource,
-			(LPCSTR)bstrDescription);
-		hr = E_FAIL;
+		hr = e.Error();
+		LogProviderError(e, connection, bstrCommandText);
 		PartitionResolver::ResetConf();
 	}
 	catch (...)
 	{
-		printf("\n UNKNOWN ERROR \n");
-		Logging::Logger::GetCurrent()->WriteInfo(L"SessionPersistence.RefreshSession Unknown error \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tSessionPersistence.RefreshSession Unknown error \r\n");
 	}
 
 	// Release ADO objects
@@ -761,7 +719,7 @@ HRESULT AspSessionPersistence::RefreshSession(
 					hr = hr2;
 				}
 
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoRecordset error \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoRecordset error \r\n");
 			}
 		}
 
@@ -792,7 +750,7 @@ HRESULT AspSessionPersistence::RefreshSession(
 					hr = hr2;
 				}
 
-				Logging::Logger::GetCurrent()->WriteInfo(L"Close AdoConnection error \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tClose AdoConnection error \r\n");
 			}
 		}
 

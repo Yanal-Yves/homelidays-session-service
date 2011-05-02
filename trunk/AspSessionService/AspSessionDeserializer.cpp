@@ -43,7 +43,7 @@ HRESULT AspSessionDeserializer::DeserializeSession()
 	hr = XmlUtility::GetReader(this->SerializedDico, this->SpReader, this->SpStream);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession unable to get reader to the Xml \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession unable to get reader to the Xml \r\n");
 		return hr;
 	}
 
@@ -53,7 +53,7 @@ HRESULT AspSessionDeserializer::DeserializeSession()
 	{ // Libération des ressources
 		this->SpReader.Release();
 		this->SpStream.Release();
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession unable to build dico\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession unable to build dico\r\n");
 		return hr;
 	}
 
@@ -79,7 +79,7 @@ HRESULT AspSessionDeserializer::BuildDico_ElementHandler(
 	hr = this->SpReader->GetLocalName(&pwszElementTmp, &uNbChar);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer BuildDico unable to getlocalname \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer BuildDico unable to getlocalname \r\n");
 		return hr;
 	}
 
@@ -92,7 +92,7 @@ HRESULT AspSessionDeserializer::BuildDico_ElementHandler(
 		hr = ExtractKeyAndTypeFromItemAttributes(bstrKey, bstrType);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession unable to ExtractKeyAndTypeFromItemAttributes \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession unable to ExtractKeyAndTypeFromItemAttributes \r\n");
 			return hr;
 		}
 
@@ -127,7 +127,7 @@ HRESULT AspSessionDeserializer::BuildDico_ElementHandler(
 			hr = ExtractDataFromCollection(variantArray);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession unable to ExtractDataFromCollection \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession unable to ExtractDataFromCollection \r\n");
 
 				return hr;
 			}
@@ -142,7 +142,7 @@ HRESULT AspSessionDeserializer::BuildDico_ElementHandler(
 			hr = spDictionary.CreateInstance(__uuidof(Scripting::Dictionary));
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer BuildDico spDictionary.CreateInstance failled\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer BuildDico spDictionary.CreateInstance failled\r\n");
 				return hr;
 			}
 
@@ -156,7 +156,7 @@ HRESULT AspSessionDeserializer::BuildDico_ElementHandler(
 			if (hr != S_OK)
 			{
 				spDictionary->Release();
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer BuildDico ExtractDataFromDictionary failled\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer BuildDico ExtractDataFromDictionary failled\r\n");
 				return hr;
 			}
 
@@ -202,7 +202,7 @@ HRESULT AspSessionDeserializer::BuildDico()
 					hr = this->SpReader->GetValue(&pwszValueTmp, NULL);
 					if (hr != S_OK)
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession unable to  Extract the value from the XML \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession unable to  Extract the value from the XML \r\n");
 						return hr;
 					}
 
@@ -213,7 +213,7 @@ HRESULT AspSessionDeserializer::BuildDico()
 					else
 					{ // Should not happen
 						hr = E_FAIL;
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession Should not happen pwszValueTmp == NULL \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession Should not happen pwszValueTmp == NULL \r\n");
 						return hr;
 					}
 					
@@ -222,7 +222,7 @@ HRESULT AspSessionDeserializer::BuildDico()
 					hr = CreateVariantFromValueAndType(bstrValue, bstrType, varToAdd);
 					if (hr != S_OK)
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession unable to  Createa VARIANT initialize with the value and type extracted \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession unable to  Createa VARIANT initialize with the value and type extracted \r\n");
 						return hr;
 					}
 					
@@ -236,7 +236,7 @@ HRESULT AspSessionDeserializer::BuildDico()
 					hr = this->SpReader->GetValue(&pwszValueTmp, NULL);
 					if (hr != S_OK)
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession unable to get value of string \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession unable to get value of string \r\n");
 						return hr;
 					}
 
@@ -248,7 +248,7 @@ HRESULT AspSessionDeserializer::BuildDico()
 					else
 					{ // Should not happen
 						hr = E_FAIL;
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer DeserializeSession Should not happen pwszKey == NULL \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer DeserializeSession Should not happen pwszKey == NULL \r\n");
 						return hr;
 					}
 
@@ -286,7 +286,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueEnumAndType(
 
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueEnumAndType unable to Convert it into the wanted type \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueEnumAndType unable to Convert it into the wanted type \r\n");
 		
 		return hr;
 	}
@@ -311,7 +311,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_EMPTY, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type empty \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type empty \r\n");
 			return hr;
 		}
 	}
@@ -320,7 +320,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_I1, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type signedbyte \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type signedbyte \r\n");
 
 			return hr;
 		}
@@ -330,7 +330,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_I2, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type SingedShort \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type SingedShort \r\n");
 
 			return hr;
 		}
@@ -340,7 +340,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_I4, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type SingedInteger \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type SingedInteger \r\n");
 
 			return hr;
 		}
@@ -350,7 +350,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_UI1, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type UnsingedByte \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type UnsingedByte \r\n");
 
 			return hr;
 		}
@@ -360,7 +360,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_UI2, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type UnsingedShort \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type UnsingedShort \r\n");
 
 			return hr;
 		}
@@ -370,7 +370,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_UI4, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type UnsingedInteger \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type UnsingedInteger \r\n");
 
 			return hr;
 		}
@@ -380,7 +380,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_INT, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type SingedMachineInteger \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type SingedMachineInteger \r\n");
 
 			return hr;
 		}
@@ -390,7 +390,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_UINT, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type UnsingedMachineInteger \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type UnsingedMachineInteger \r\n");
 
 			return hr;
 		}
@@ -400,7 +400,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_DECIMAL, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Decimal \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Decimal \r\n");
 
 			return hr;
 		}
@@ -410,7 +410,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_R4, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Real4 \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Real4 \r\n");
 
 			return hr;
 		}
@@ -420,7 +420,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_R8, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Real8 \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Real8 \r\n");
 
 			return hr;
 		}
@@ -430,7 +430,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_BOOL, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Bool \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Bool \r\n");
 
 			return hr;
 		}
@@ -440,7 +440,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_CY, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Currency \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Currency \r\n");
 
 			return hr;
 		}
@@ -450,7 +450,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_DATE, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Date \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Date \r\n");
 
 			return hr;
 		}
@@ -460,7 +460,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 		hr = CreateVariantFromValueEnumAndType(bstrValue, VT_NULL, variantValue);
 		if (hr != S_OK)
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Null \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType unable to CreateVariantFromValueEnumAndType type Null \r\n");
 
 			return hr;
 		}
@@ -468,7 +468,7 @@ HRESULT AspSessionDeserializer::CreateVariantFromValueAndType(
 	else
 	{
 		hr = E_UNEXPECTED;
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer CreateVariantFromValueAndType type Unexpected \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer CreateVariantFromValueAndType type Unexpected \r\n");
 
 		return hr;
 	}
@@ -499,7 +499,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				hr = this->SpReader->GetLocalName(&pwszEndElement, NULL);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromTable unable to GetLocalName \r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromTable unable to GetLocalName \r\n");
 					return hr;
 				}
 
@@ -514,7 +514,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				hr = ExtractKeyAndTypeFromItemAttributes(bstrKey, bstrType);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to ExtractKeyAndTypeFromItemAttributes \r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to ExtractKeyAndTypeFromItemAttributes \r\n");
 					return hr;
 				}
 
@@ -529,7 +529,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					if (hr != S_OK)
 					{
 						delete [] psabBounds;
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to Get the dimension and bounds from Item node \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to Get the dimension and bounds from Item node \r\n");
 						return hr;
 					}
 
@@ -546,7 +546,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					hr = ExtractCoordinatesFromItemAttributes(bstrCoord);
 					if (FAILED(hr))
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to Extract coordonate from xml as a string \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to Extract coordonate from xml as a string \r\n");
 						return hr;
 					}
 
@@ -554,7 +554,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					hr = ExtractDataFromCollection(variantArraySub);
 					if (FAILED(hr))
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to Extract data of the subarray \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to Extract data of the subarray \r\n");
 						return hr;
 					}
 
@@ -562,7 +562,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					hr = AddVariantToContainer(bstrCoord, bstrKey, &variantArray, &variantArraySub);
 					if (hr != S_OK)
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection AddVariantToSafeArray (type : table) failled\r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection AddVariantToSafeArray (type : table) failled\r\n");
 						return hr;
 					}
 				}
@@ -573,7 +573,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					hr = spDictionary.CreateInstance(__uuidof(Scripting::Dictionary));
 					if (hr != S_OK)
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection spDictionary.CreateInstance failled \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection spDictionary.CreateInstance failled \r\n");
 						return hr;
 					}
 
@@ -587,7 +587,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					hr = ExtractCoordinatesFromItemAttributes(bstrCoord);
 					if (FAILED(hr))
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to Extract coordonate from xml as a string \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to Extract coordonate from xml as a string \r\n");
 						return hr;
 					}
 
@@ -595,7 +595,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					hr = ExtractDataFromCollection(vDictionary);
 					if (FAILED(hr))
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to Extract data of the subarray \r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to Extract data of the subarray \r\n");
 						return hr;
 					}
 
@@ -604,7 +604,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					if (hr != S_OK)
 					{
 						spDictionary->Release();
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection AddVariantToSafeArray (type : table) failled\r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection AddVariantToSafeArray (type : table) failled\r\n");
 						return hr;
 					}
 				}
@@ -614,7 +614,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 					hr = ExtractCoordinatesFromItemAttributes(bstrCoord);
 					if (FAILED(hr))
 					{
-						Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to  Extract the coordinate from the XML\r\n");
+						Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to  Extract the coordinate from the XML\r\n");
 						return hr;
 					}
 
@@ -627,7 +627,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				hr = this->SpReader->GetValue(&pwszValueTmp, NULL);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to Extract the value from the XML\r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to Extract the value from the XML\r\n");
 					return hr;
 				}
 				
@@ -639,7 +639,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				else
 				{ // Should not happen
 					hr = E_FAIL;
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection Should not happen pwszValueTmp == NULL \r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection Should not happen pwszValueTmp == NULL \r\n");
 					return hr;
 				}
 
@@ -648,7 +648,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				hr = CreateVariantFromValueAndType(bstrValue, bstrType, varToAdd);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection  unable to  Createa VARIANT initialize with the value and type extracted \r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection  unable to  Createa VARIANT initialize with the value and type extracted \r\n");
 					return hr;
 				}
 
@@ -656,7 +656,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				hr = AddVariantToContainer(bstrCoord, bstrKey, &variantArray, &varToAdd);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection AddVariantToContainer(XmlNodeType_Text) failled\r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection AddVariantToContainer(XmlNodeType_Text) failled\r\n");
 					return hr;
 				}
 			} break;
@@ -667,7 +667,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				hr = this->SpReader->GetValue(&pwszValueTmp, NULL);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection unable to Get the value to add into the safe array\r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection unable to Get the value to add into the safe array\r\n");
 
 					return hr;
 				}
@@ -681,7 +681,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				else
 				{ // Should not happen
 					hr = E_FAIL;
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection case XmlNodeType_CDATA Should not happen pwszValueTmp == NULL \r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection case XmlNodeType_CDATA Should not happen pwszValueTmp == NULL \r\n");
 					return hr;
 				}
 
@@ -689,7 +689,7 @@ HRESULT AspSessionDeserializer::ExtractDataFromCollection(
 				hr = AddVariantToContainer(bstrCoord, bstrKey, &variantArray, &varToAdd);
 				if (hr != S_OK)
 				{
-					Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDataFromCollection AddVariantToContainer(XmlNodeType_Text) failled\r\n");
+					Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDataFromCollection AddVariantToContainer(XmlNodeType_Text) failled\r\n");
 					return hr;
 				}
 			} break;
@@ -721,7 +721,7 @@ HRESULT AspSessionDeserializer::AddVariantToContainer(
 		hr = spDictionary->Add(&vKey, pVariantToAdd);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"AspSessionDeserializer AddVariantToContainer spDictionary->Add failled\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tAspSessionDeserializer AddVariantToContainer spDictionary->Add failled\r\n");
 		}
 	}
 	else
@@ -731,12 +731,12 @@ HRESULT AspSessionDeserializer::AddVariantToContainer(
 			hr = AddVariantToSafeArray(pwszCoord, pvContainer->parray, pVariantToAdd);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer AddVariantToContainer AddVariantToSafeArray failled\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer AddVariantToContainer AddVariantToSafeArray failled\r\n");
 			}
 		}
 		else
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer AddVariantToContainer pwszCoord is NULL\r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer AddVariantToContainer pwszCoord is NULL\r\n");
 			hr = E_FAIL;
 		}
 	}
@@ -757,7 +757,7 @@ HRESULT AspSessionDeserializer::ExtractKeyAndTypeFromItemAttributes(
 	hr = this->SpReader->MoveToFirstAttribute();
 	if (hr != S_OK)
 	{ // There should be a first argument
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractKeyAndTypeFromItemAttributes There should be a first argument \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractKeyAndTypeFromItemAttributes There should be a first argument \r\n");
 		return hr;
 	}
 
@@ -767,7 +767,7 @@ HRESULT AspSessionDeserializer::ExtractKeyAndTypeFromItemAttributes(
 	hr = this->SpReader->GetValue(&pwszKeyTmp, &uNbChar);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractKeyAndTypeFromItemAttributes Unable to GetValue of first argument \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractKeyAndTypeFromItemAttributes Unable to GetValue of first argument \r\n");
 		return hr;
 	}
 
@@ -778,7 +778,7 @@ HRESULT AspSessionDeserializer::ExtractKeyAndTypeFromItemAttributes(
 	hr = this->SpReader->MoveToNextAttribute();
 	if (hr != S_OK)
 	{ // There should be a second argument
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractKeyAndTypeFromItemAttributes There should be a second argument \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractKeyAndTypeFromItemAttributes There should be a second argument \r\n");
 		return hr;
 	}
 
@@ -787,7 +787,7 @@ HRESULT AspSessionDeserializer::ExtractKeyAndTypeFromItemAttributes(
 	hr = this->SpReader->GetValue(&pwszTypeTmp, &uNbChar);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractKeyAndTypeFromItemAttributes Unable to getvalue of second argument\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractKeyAndTypeFromItemAttributes Unable to getvalue of second argument\r\n");
 		return hr;
 	}
 
@@ -810,7 +810,7 @@ HRESULT AspSessionDeserializer::ExtractDimAndBoundsFromItemAttributes(
 	hr = this->SpReader->MoveToNextAttribute();
 	if (hr != S_OK)
 	{ // There should be a third argument
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDimAndBoundsFromItemAttributes There should be a third argument \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDimAndBoundsFromItemAttributes There should be a third argument \r\n");
 		return hr;
 	}
 
@@ -829,7 +829,7 @@ HRESULT AspSessionDeserializer::ExtractDimAndBoundsFromItemAttributes(
 	hr = this->SpReader->MoveToNextAttribute();
 	if (hr != S_OK)
 	{ // There should be a third argument
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDimAndBoundsFromItemAttributes There should be a third argument \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDimAndBoundsFromItemAttributes There should be a third argument \r\n");
 		return hr;
 	}
 
@@ -837,7 +837,7 @@ HRESULT AspSessionDeserializer::ExtractDimAndBoundsFromItemAttributes(
 	hr = this->SpReader->GetValue(&pwszBounds, NULL);
 	if (hr != S_OK)
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDimAndBoundsFromItemAttributes unable to get value of  third argument \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDimAndBoundsFromItemAttributes unable to get value of  third argument \r\n");
 		return hr;
 	}
 
@@ -847,7 +847,7 @@ HRESULT AspSessionDeserializer::ExtractDimAndBoundsFromItemAttributes(
 	if (hr != S_OK)
 	{
 		delete [] arrStringArray;
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractDimAndBoundsFromItemAttributes unable to split string \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractDimAndBoundsFromItemAttributes unable to split string \r\n");
 		return hr;
 	}
 
@@ -892,7 +892,7 @@ HRESULT AspSessionDeserializer::ExtractCoordinatesFromItemAttributes(
 			hr = this->SpReader->GetValue(&pwszCoordTmp, NULL);
 			if (hr != S_OK)
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractCoordinatesFromItemAttributes unable to getvalue\r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractCoordinatesFromItemAttributes unable to getvalue\r\n");
 			}
 
 			bstrCoord = pwszCoordTmp;
@@ -900,7 +900,7 @@ HRESULT AspSessionDeserializer::ExtractCoordinatesFromItemAttributes(
 	}
 	else
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer ExtractCoordinatesFromItemAttributes MoveToNextAttribute failled\r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer ExtractCoordinatesFromItemAttributes MoveToNextAttribute failled\r\n");
 	}
 
 	return hr;
@@ -945,7 +945,7 @@ HRESULT AspSessionDeserializer::GetCoordinateFromStringCoordinate(
 	if (hr != S_OK)
 	{
 		delete [] arrStringArray;
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer GetCoordinateFromStringCoordinate unable to split string \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer GetCoordinateFromStringCoordinate unable to split string \r\n");
 		return hr;
 	}
 
@@ -990,7 +990,7 @@ HRESULT AspSessionDeserializer::AddVariantToSafeArray(
 	if (hr != S_OK)
 	{
 		delete [] pulCoordinate; // Allocated by GetCoordinateFromStringCoordinate
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer AddVariantToSafeArray unable to  Get the coordinate as a table of LONG \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer AddVariantToSafeArray unable to  Get the coordinate as a table of LONG \r\n");
 		return hr;
 	}
 
@@ -999,7 +999,7 @@ HRESULT AspSessionDeserializer::AddVariantToSafeArray(
 	if (hr != S_OK)
 	{
 		delete [] pulCoordinate; // Allocated by GetCoordinateFromStringCoordinate
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionDeserializer AddVariantToSafeArray unable to Add the sub array into the array \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionDeserializer AddVariantToSafeArray unable to Add the sub array into the array \r\n");
 		return hr;
 	}
 

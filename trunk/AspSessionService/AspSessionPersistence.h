@@ -31,8 +31,9 @@ private:
 
 	/// Log Provider Errors from Connection object.
 	static void LogProviderError(
-		ADODB::_ConnectionPtr pConnection, // Current connection objects
-		_bstr_t bstrCommandText // The SQL command text that failled
+		_com_error &e, ///< [in] Current exception
+		ADODB::_ConnectionPtr pConnection, ///< [in] Current connection objects
+		_bstr_t bstrCommandText ///< [in] The SQL command text that failled
 		);
 
 public:

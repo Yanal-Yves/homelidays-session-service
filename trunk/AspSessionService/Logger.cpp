@@ -175,7 +175,7 @@ namespace Logging
 		}
 
 		// Write a message separator.
-		wchar_t message2[] = L"------------------------\r\n";
+		wchar_t message2[] = L"------------------------\r\n\r\n";
 		DWORD message_size2 = (DWORD)wcslen(message2) * sizeof(wchar_t);
 
 		bWriteResult = WriteFile(

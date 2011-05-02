@@ -51,7 +51,7 @@ HRESULT CAspSessionContents::InitializeComponent()
 		hr = ((IAspSession*)m_piAspSession)->get_SessionID(&bstrSessionId);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent InitializeComponent get_SessionID  \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent InitializeComponent get_SessionID  \r\n");
 			if (bstrSessionId != NULL)
 			{
 				SysFreeString(bstrSessionId);
@@ -101,7 +101,7 @@ HRESULT CAspSessionContents::InitializeComponent()
 			hr = deserializer.DeserializeSession();
 			if (FAILED(hr))
 			{
-				Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent InitializeComponent unable to deserialize session \r\n");
+				Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent InitializeComponent unable to deserialize session \r\n");
 
 				return hr;
 			}
@@ -113,7 +113,7 @@ HRESULT CAspSessionContents::InitializeComponent()
 		}
 		else // if (data.vt != VT_EMPTY)
 		{ //Ttout autre cas n'est pas normal
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent InitializeComponent session est vide \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent InitializeComponent session est vide \r\n");
 			return E_FAIL;
 		}
 	}
@@ -130,7 +130,7 @@ STDMETHODIMP CAspSessionContents::get__NewEnum(
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent get__NewEnum unable to intialize component \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent get__NewEnum unable to intialize component \r\n");
 
 		return hr;
 	}
@@ -156,7 +156,7 @@ STDMETHODIMP CAspSessionContents::get_Item(
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent get_Item unable to intialize component \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent get_Item unable to intialize component \r\n");
 		return hr;
 	}
 
@@ -188,7 +188,7 @@ STDMETHODIMP CAspSessionContents::put_Item(
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent put_Item unable to intialize component \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent put_Item unable to intialize component \r\n");
 		return hr;
 	}
 
@@ -261,7 +261,7 @@ STDMETHODIMP CAspSessionContents::putref_Item(
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent putref_Item unable to intialize component \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent putref_Item unable to intialize component \r\n");
 		return hr;
 	}
 
@@ -319,7 +319,7 @@ STDMETHODIMP CAspSessionContents::get_Key(
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent get_Key unable to intialize component \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent get_Key unable to intialize component \r\n");
 		return hr;
 	}
 
@@ -347,7 +347,7 @@ STDMETHODIMP CAspSessionContents::get_Count(
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent get_Count unable to intialize component \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent get_Count unable to intialize component \r\n");
 		return hr;
 	}
 
@@ -365,7 +365,7 @@ STDMETHODIMP CAspSessionContents::Remove(
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent Remove unable to intialize component \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent Remove unable to intialize component \r\n");
 		return hr;
 	}
 
@@ -388,7 +388,7 @@ STDMETHODIMP CAspSessionContents::RemoveAll()
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent Remove All unable to intialize component \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent Remove All unable to intialize component \r\n");
 		return hr;
 	}
 
@@ -427,7 +427,7 @@ HRESULT CAspSessionContents::GetSessionId(
 			SysFreeString(bstrSessionId);
 		}
 
-		Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to get sessionid \r\n");
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent PersistSession unable to get sessionid \r\n");
 	}
 
 	return hr;
@@ -453,7 +453,7 @@ HRESULT CAspSessionContents::PersistSession()
 		hr = serializer.SerializeSession(dico, xml);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to intialize component \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent PersistSession unable to intialize component \r\n");
 			return hr;
 		}
 
@@ -469,7 +469,7 @@ HRESULT CAspSessionContents::PersistSession()
 		hr = SessPersistence.SetSession(vtSessionId, vtSessionTimeOut, vtxml);
 		if (FAILED(hr))
 		{
-			Logging::Logger::GetCurrent()->WriteInfo(L"Error AspSessionContent PersistSession unable to setsession \r\n");
+			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent PersistSession unable to setsession \r\n");
 			return hr;
 		}
 	}
