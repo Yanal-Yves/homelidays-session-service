@@ -17,4 +17,14 @@ AspSessionService_i.c
 AspSessionService_i.h
 AspSessionService_p.c
 StyleCop.Cache
+</Value></Property><Property><Name>svn:ignore</Name><Value>*.user
+*.aps
+Debug
+Release
+x64
+AspSessionService_i.c
+AspSessionService_i.h
+AspSessionService_p.c
+StyleCop.Cache
+dlldata.c
 </Value></Property></Properties></ItemProperties>
