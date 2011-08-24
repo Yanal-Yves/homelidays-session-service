@@ -4,4 +4,8 @@ Debug
 </Value></Property><Property><Name>svn:ignore</Name><Value>*.user
 Debug
 StyleCop.Cache
+</Value></Property><Property><Name>svn:ignore</Name><Value>*.user
+Debug
+StyleCop.Cache
+Release
 </Value></Property></Properties></ItemProperties>

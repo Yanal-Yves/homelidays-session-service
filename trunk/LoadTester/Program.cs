@@ -81,6 +81,8 @@ namespace LoadTester
                 RequestUrl(url, false, false, thread_number);
                 url = "http://sessionservice.my.homelidays.com/SessionService/TestNoSessionAccess.asp";
                 RequestUrl(url, true, false, thread_number);
+                url = "http://sessionservice.my.homelidays.com/SessionService/TestReload.asp";
+                RequestUrl(url, true, false, thread_number);
                 Interlocked.Add(ref nbRequest, 1);
             }
         }

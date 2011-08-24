@@ -622,3 +622,29 @@ STDMETHODIMP CAspSession::put_Timeout(
 
 	return hr;
 }
+
+/// Reload the session from the storage
+/// @return S_OK in case of success any other value else
+STDMETHODIMP CAspSession::Reload(void)
+{
+	// Remove the content of the session in memory
+	HRESULT hr = ((CAspSessionContents*)this->Contents)->RemoveAll();
+	if (FAILED(hr))
+	{
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError CAspSession Reload unable to RemoveAll\r\n");
+		return hr;
+	}
+
+	// Mark the session as uninitialized
+	((CAspSessionContents*)this->Contents)->m_bIsSessionInitialized = false;
+
+	// Initialize again the Session
+	hr = ((CAspSessionContents*)this->Contents)->InitializeComponent();
+	if (FAILED(hr))
+	{
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError CAspSession Reload unable to intialize component\r\n");
+		return hr;
+	}
+
+	return S_OK;
+}

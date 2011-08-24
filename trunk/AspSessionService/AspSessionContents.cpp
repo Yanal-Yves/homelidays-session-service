@@ -86,7 +86,7 @@ HRESULT CAspSessionContents::InitializeComponent()
 			return hr;
 		}
 
-		//Si il ya une session en base on régle le timeout actuel avec le timeout en base
+		// S'il y a une session en base, on régle le timeout actuel avec le timeout en base
 		if (vtTimeOut.vt!=VT_EMPTY)
 		{
 			long l_timeout;
@@ -111,8 +111,8 @@ HRESULT CAspSessionContents::InitializeComponent()
 #ifdef HOMELIDAYS_SESSION_ONSTART
 #endif
 		}
-		else // if (data.vt != VT_EMPTY)
-		{ //Ttout autre cas n'est pas normal
+		else // if ((data.vt != VT_EMPTY) && (data.vt != VT_BSTR))
+		{ // Tout autre cas n'est pas normal
 			Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent InitializeComponent session est vide \r\n");
 			return E_FAIL;
 		}

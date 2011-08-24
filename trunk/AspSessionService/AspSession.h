@@ -77,6 +77,10 @@ public:
 	STDMETHOD(get_Timeout)(long* plTimeout);
 	STDMETHOD(put_Timeout)(long plTimeout);
 
+	/// Reload the session from the storage
+	/// @return S_OK in case of success any other value else
+	STDMETHOD(Reload)(void);
+
 private:
 	/// Context object
 	CComPtr<IObjectContext> m_spObjectContext;
