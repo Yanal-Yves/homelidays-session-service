@@ -8,4 +8,6 @@ StyleCop.Cache
 *.suo
 StyleCop.Cache
 _ReSharper.SessionService
+_ReSharper.Setupx64
+_ReSharper.Setupx86
 </Value></Property></Properties></ItemProperties>
