@@ -81,6 +81,9 @@ public:
 	/// @return S_OK in case of success any other value else
 	STDMETHOD(Reload)(void);
 
+	/// Save the session into the storage
+	/// @return S_OK in case of success any other value else
+	STDMETHOD(Save)(void);
 private:
 	/// Context object
 	CComPtr<IObjectContext> m_spObjectContext;

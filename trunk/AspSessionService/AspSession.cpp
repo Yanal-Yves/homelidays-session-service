@@ -648,3 +648,16 @@ STDMETHODIMP CAspSession::Reload(void)
 
 	return S_OK;
 }
+
+/// Save the session into the storage
+/// @return S_OK in case of success any other value else
+STDMETHODIMP CAspSession::Save(void)
+{
+	HRESULT hr = ((CAspSessionContents*)this->Contents)->PersistSession();
+	if (FAILED(hr))
+	{	
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSession Save PersistSession\r\n");
+	}
+
+	return hr;
+}

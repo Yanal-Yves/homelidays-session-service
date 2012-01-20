@@ -73,6 +73,7 @@ interface IAspSession : IDispatch
 	[propget, id(0x60020004), helpstring("Specifies the timeout period assigned to the Session object for this Application, in minutes.")] HRESULT Timeout([out, retval] long* plTimeout);
 	[propput, id(0x60020004), helpstring("Specifies the timeout period assigned to the Session object for this Application, in minutes.")] HRESULT Timeout([in] long plTimeout);
 	[id(1610743821), helpstring("Reload the session from the storage and loose any change.")] HRESULT Reload(void);
+	[id(1610743822), helpstring("Save the session into the storage")] HRESULT Save(void);
 };
 
 // Library AspSessionServiceLib

@@ -251,6 +251,16 @@
 		WriteTestLog("UPERCASE: " & AspSessionService("UPERCASE"))
 		WriteTestLog("upercase: " &AspSessionService("upercase"))
 		WriteEndTestSection()
+		
+		WriteBeginTestSection("Homelidays Session Service used with an Execute statement")
+		' Save the current Session into the storage
+		AspSessionService.Save()
+		' Call Execute statement
+		Server.Execute("ChildPage.asp")
+		AspSessionService.Reload()
+		' Read the session variable written in the child page
+		WriteTestLog(": " & AspSessionService("keyChildPage"))
+		WriteEndTestSection()
 
 		Response.Write("<br /><b>Fin du Test</b>")
 %>

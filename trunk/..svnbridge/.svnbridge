@@ -4,4 +4,8 @@
 </Value></Property><Property><Name>svn:ignore</Name><Value>*.ncb
 *.suo
 StyleCop.Cache
+</Value></Property><Property><Name>svn:ignore</Name><Value>*.ncb
+*.suo
+StyleCop.Cache
+_ReSharper.SessionService
 </Value></Property></Properties></ItemProperties>
