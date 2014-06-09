@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Partitions>
 	<Partition>
-		<ConnectionString>Provider=SQLOLEDB.1;Data Source=.\;Initial Catalog=tempdb;</ConnectionString>
+		<ConnectionString>Provider=SQLNCLI10;Data Source=.\;Initial Catalog=tempdb;</ConnectionString>
 		<Login>sa</Login>
 		<Password>123456</Password>
 	</Partition>

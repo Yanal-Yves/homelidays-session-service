@@ -141,8 +141,8 @@ STDMETHODIMP CAspSessionContents::get__NewEnum(
 
 /// Get an item corresponding to the provided key
 STDMETHODIMP CAspSessionContents::get_Item(
-	BSTR Key, ///< [in] the key of the wanted item
-	VARIANT* Value ///<[out] the item corresponding to the provided key
+	BSTR Key, ///< [in] The key of the wanted item. /!\ DO NOT MODIFY THE VALUE /!\. This pointer may be a reference to an immediate string and all immediate string having the same value share the same string instance.
+	VARIANT* Value ///<[out] The item corresponding to the provided key.
 	)
 {
 	if (Value == NULL)
@@ -150,19 +150,26 @@ STDMETHODIMP CAspSessionContents::get_Item(
 		return E_POINTER;
 	}
 
-	BstrToLower(Key);
+	BSTR KeyCopy = BstrToLower(Key); // WORK WITH A COPY OF THE LOWERED KEY.
+	if(KeyCopy == NULL)
+	{
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent get_Item BstrToLower failled \r\n");
+		return E_FAIL;
+	}
 
 	HRESULT hr = S_OK;
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
+		::SysFreeString(KeyCopy);
 		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent get_Item unable to intialize component \r\n");
 		return hr;
 	}
 
-	ContainerType::iterator it = dico.find(Key);
+	ContainerType::iterator it = dico.find(KeyCopy);
 
 	// If item not found, just return
+	// If item was found, copy the variant to the out param
 	if (it == dico.end())
 	{
 		*Value = variant_t().Detach();
@@ -172,22 +179,29 @@ STDMETHODIMP CAspSessionContents::get_Item(
 		*Value = _variant_t(it->second).Detach();
 	}
 
-	// If item was found, copy the variant to the out param
+	::SysFreeString(KeyCopy);
+
 	return S_OK;
 }
 
 /// Put an item to the contents collection with the provided key
 STDMETHODIMP CAspSessionContents::put_Item(
-	BSTR Key, ///< [in] the key where to store the item in the collection
-	VARIANT Value ///< [in] the value to store in the content collection
+	BSTR Key, ///< [in] The key where to store the item in the collection. /!\ DO NOT MODIFY THE VALUE /!\. This pointer may be a reference to an immediate string and all immediate string having the same value share the same string instance.
+	VARIANT Value ///< [in] The value to store in the content collection.
 	)
 {
-	BstrToLower(Key);
+	BSTR KeyCopy = BstrToLower(Key); // WORK WITH A COPY OF THE LOWERED KEY.
+	if(KeyCopy == NULL)
+	{
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent put_Item BstrToLower failled \r\n");
+		return E_FAIL;
+	}
 
 	HRESULT hr = S_OK;
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
+		::SysFreeString(KeyCopy);
 		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent put_Item unable to intialize component \r\n");
 		return hr;
 	}
@@ -208,7 +222,7 @@ STDMETHODIMP CAspSessionContents::put_Item(
 		}
 
 		variantArray.parray = sourceArray;
-		dico[Key] = variantArray;
+		dico[KeyCopy] = variantArray;
 	}
 	else
 	{
@@ -235,32 +249,39 @@ STDMETHODIMP CAspSessionContents::put_Item(
 				NULL,
 				0);
 
-			dico[Key] = vResult;
+			dico[KeyCopy] = vResult;
 		}
 		else
 		{ //Value type (string, Double, integer, etc...)
-			dico[Key] = Value;
+			dico[KeyCopy] = Value;
 		}
 	}
 
+	::SysFreeString(KeyCopy);
 	return S_OK;
 }
 
 /// Put a COM object to the contents collection with the provided key
 STDMETHODIMP CAspSessionContents::putref_Item(
-	BSTR Key, ///< [in] the key where to store the object in the content collection
-	IDispatch *Value ///< [in] the object to store in the content collection
+	BSTR Key, ///< [in] The key where to store the object in the content collection. /!\ DO NOT MODIFY THE VALUE /!\. This pointer may be a reference to an immediate string and all immediate string having the same value share the same string instance.
+	IDispatch *Value ///< [in] The object to store in the content collection.
 	)
 {
 	// The COM object Value will be released by the ASP runtime
 
 	HRESULT hr;
 
-	BstrToLower(Key);
+	BSTR KeyCopy = BstrToLower(Key); // WORK WITH A COPY OF THE LOWERED KEY
+	if(KeyCopy == NULL)
+	{
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent putref_Item BstrToLower failled \r\n");
+		return E_FAIL;
+	}
 
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
+		::SysFreeString(KeyCopy);
 		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent putref_Item unable to intialize component \r\n");
 		return hr;
 	}
@@ -272,8 +293,9 @@ STDMETHODIMP CAspSessionContents::putref_Item(
 		vNothing.vt = VT_DISPATCH;
 		vNothing.pdispVal = NULL;
 
-		dico[Key] = vNothing;
+		dico[KeyCopy] = vNothing;
 
+		::SysFreeString(KeyCopy);
 		return hr;
 	}
 	else
@@ -285,6 +307,7 @@ STDMETHODIMP CAspSessionContents::putref_Item(
 
 		if (FAILED(hr))
 		{ // E_NOTIMPL : Type d'objet COM non pris en charge par le session service
+			::SysFreeString(KeyCopy);
 			return E_NOTIMPL;
 		}
 
@@ -296,16 +319,17 @@ STDMETHODIMP CAspSessionContents::putref_Item(
 		vDictionary.vt = VT_DISPATCH;
 		vDictionary.pdispVal = Value;
 
-		dico[Key] = vDictionary;
+		dico[KeyCopy] = vDictionary;
 
+		::SysFreeString(KeyCopy);
 		return hr; // According to the doc should be S_OK
 	}
 }
 
 /// Get the key corresponding to the provided key
 STDMETHODIMP CAspSessionContents::get_Key(
-	BSTR Key, ///< [in] The desired key
-	BSTR* KeyValue ///< [out] the found key corresponding to the desired key
+	BSTR Key, ///< [in] The desired key. /!\ DO NOT MODIFY THE VALUE /!\. This pointer may be a reference to an immediate string and all immediate string having the same value share the same string instance.
+	BSTR* KeyValue ///< [out] The found key corresponding to the desired key.
 	)
 {
 	if (KeyValue == NULL)
@@ -313,17 +337,23 @@ STDMETHODIMP CAspSessionContents::get_Key(
 		return E_POINTER;
 	}
 
-	BstrToLower(Key);
+	BSTR KeyCopy = BstrToLower(Key); // WORK WITH A COPY OF THE LOWERED KEY
+	if(KeyCopy == NULL)
+	{
+		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent get_Key BstrToLower failled \r\n");
+		return E_FAIL;
+	}
 
 	HRESULT hr = S_OK;
 	hr = InitializeComponent();
 	if (FAILED(hr))
 	{
+		::SysFreeString(KeyCopy);
 		Logging::Logger::GetCurrent()->WriteInfo(L"\tError AspSessionContent get_Key unable to intialize component \r\n");
 		return hr;
 	}
 
-	ContainerType::iterator it = dico.find(Key);
+	ContainerType::iterator it = dico.find(KeyCopy);
 
 	// If item not found, return Empty VARIANT
 	if (it == dico.end())
@@ -332,9 +362,10 @@ STDMETHODIMP CAspSessionContents::get_Key(
 	}
 	else
 	{
-		*KeyValue = Key;
+		*KeyValue = KeyCopy;
 	}
 
+	::SysFreeString(KeyCopy);
 	return S_OK;
 }
 
@@ -481,15 +512,22 @@ HRESULT CAspSessionContents::PersistSession()
 	return hr;
 }
 
-/// Put all characters of a BSTR to lower case
-void CAspSessionContents::BstrToLower(
-	BSTR bstrString ///< [in] the bstr to lower case
+/// Create a copy of the bstrString parameter and put all characters of a BSTR to lower case.
+/// @return the lowered string.
+BSTR CAspSessionContents::BstrToLower(
+	BSTR bstrString ///< [in] The bstr to lower case
 	)
 {
-	UINT uSize = SysStringLen(bstrString);
+	// Make a copy of the BSTR because all immediate string with the same value share the same string instance. 
+    // This fixes https://sessionservice.codeplex.com/workitem/2165.
+	BSTR bstrStringCopy = ::SysAllocString(bstrString);
+
+	UINT uSize = SysStringLen(bstrStringCopy);
 
 	for (UINT i = 0 ; i < uSize ; i++)
 	{
-		bstrString[i] = towlower(bstrString[i]);
+		bstrStringCopy[i] = towlower(bstrStringCopy[i]);
 	}
+
+	return bstrStringCopy;
 }

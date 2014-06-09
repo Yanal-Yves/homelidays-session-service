@@ -52,8 +52,9 @@ private:
 	/// The Session.Contents collection
 	ContainerType dico;
 
-	/// Put all characters of a BSTR to lower case
-	void BstrToLower(
+    /// Create a copy of the bstrString parameter and put all characters of a BSTR to lower case.
+    /// @return the lowered string.
+	BSTR BstrToLower(
 		BSTR bstrString ///< [in] the bstr to lower case
 	);
 
