@@ -15,8 +15,6 @@
  */
 
 using System;
-using System.Configuration;
-using System.Web;
 
 namespace Homelidays.Web.SessionService
 {
