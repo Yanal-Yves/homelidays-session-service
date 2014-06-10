@@ -36,6 +36,7 @@ Global
 		{C78D5857-6E5C-469B-BECB-EE41C43A187C}.Release|x64.ActiveCfg = Release|x64
 		{C78D5857-6E5C-469B-BECB-EE41C43A187C}.Release|x64.Build.0 = Release|x64
 		{8C5345E8-C67B-4128-8C01-AD896ED8A764}.Release|x64.ActiveCfg = Release|Any CPU
+		{8C5345E8-C67B-4128-8C01-AD896ED8A764}.Release|x64.Build.0 = Release|Any CPU
 		{711B49AD-145B-48D8-9E7F-7AC577777605}.Release|x64.ActiveCfg = Release
 		{711B49AD-145B-48D8-9E7F-7AC577777605}.Release|x64.Build.0 = Release
 	EndGlobalSection
