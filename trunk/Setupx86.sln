@@ -36,6 +36,7 @@ Global
 		{C78D5857-6E5C-469B-BECB-EE41C43A187C}.Release|Win32.ActiveCfg = Release|Win32
 		{C78D5857-6E5C-469B-BECB-EE41C43A187C}.Release|Win32.Build.0 = Release|Win32
 		{8C5345E8-C67B-4128-8C01-AD896ED8A764}.Release|Win32.ActiveCfg = Release|Any CPU
+		{8C5345E8-C67B-4128-8C01-AD896ED8A764}.Release|Win32.Build.0 = Release|Any CPU
 		{94680738-FF73-43AE-B835-746594FE48DC}.Release|Win32.ActiveCfg = Release
 		{94680738-FF73-43AE-B835-746594FE48DC}.Release|Win32.Build.0 = Release
 	EndGlobalSection

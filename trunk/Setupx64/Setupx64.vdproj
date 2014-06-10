@@ -15,14 +15,26 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_147A2BE48B4043719F065B73F6964A18"
-        "OwnerKey" = "8:_9B45D674D3674AAF9C7CB7CE7BBC0B6C"
+        "MsmKey" = "8:_11639A2E53394E5CA1BC7E637CEEA03A"
+        "OwnerKey" = "8:_9151A43208A9498A94B452270DE049C8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_1C4F5D20E2E24A51AAABE2A288EAF4AF"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_30B69DF98E429E00AF53DFCA926E60AC"
+        "OwnerKey" = "8:_1C4F5D20E2E24A51AAABE2A288EAF4AF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_30B69DF98E429E00AF53DFCA926E60AC"
+        "OwnerKey" = "8:_B6B53178126744EEA59159C8AC4B4A03"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -57,13 +69,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_77412ABF5FE04CD8B40BE4CBBDCAB8D2"
-        "OwnerKey" = "8:_DCCEA5BAF89F4B96A5162D99F8B3D389"
+        "MsmKey" = "8:_9151A43208A9498A94B452270DE049C8"
+        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9B45D674D3674AAF9C7CB7CE7BBC0B6C"
+        "MsmKey" = "8:_A547BF87DBAA4753B0A35AC8D9748C72"
         "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -81,26 +93,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DCCEA5BAF89F4B96A5162D99F8B3D389"
-        "OwnerKey" = "8:_B0FE21F9F2BA41EC9C229974D6F81570"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_DD4DAD93A1A043B380A52AA63686B6EA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E003EC31A72F7BE89463CA74FE13E559"
-        "OwnerKey" = "8:_1C4F5D20E2E24A51AAABE2A288EAF4AF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E003EC31A72F7BE89463CA74FE13E559"
-        "OwnerKey" = "8:_B6B53178126744EEA59159C8AC4B4A03"
+        "MsmKey" = "8:_F52E83535DAB4A4288B3654C679EFBFC"
+        "OwnerKey" = "8:_A547BF87DBAA4753B0A35AC8D9748C72"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -118,7 +118,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E003EC31A72F7BE89463CA74FE13E559"
+        "OwnerKey" = "8:_30B69DF98E429E00AF53DFCA926E60AC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -236,6 +236,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_30B69DF98E429E00AF53DFCA926E60AC"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_30B69DF98E429E00AF53DFCA926E60AC"
+                    {
+                    "Name" = "8:log4net.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:log4net.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F54AFEB3729A44EAAE61FA35A0762733"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4F7A57AE84C64DB589973061A1CF5C99"
             {
             "SourcePath" = "8:..\\Site\\SessionService\\HomelidaysSessionServiceInit.asp"
@@ -356,37 +387,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E003EC31A72F7BE89463CA74FE13E559"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_E003EC31A72F7BE89463CA74FE13E559"
-                    {
-                    "Name" = "8:log4net.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:log4net.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_F54AFEB3729A44EAAE61FA35A0762733"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -454,14 +454,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Session Service"
-        "ProductCode" = "8:{18BBE15C-588F-43B1-94D2-B4B91D878C8E}"
-        "PackageCode" = "8:{A7AE96C6-E30D-4892-AE0C-9BF3FE2FE649}"
+        "ProductCode" = "8:{71F23E3E-B250-42A5-8F87-FC7BB114316F}"
+        "PackageCode" = "8:{383BB5BD-ED10-4DBD-9EFD-D9EED63BE46B}"
         "UpgradeCode" = "8:{F652AF9F-D382-4DCA-953C-20B95A149FFA}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.11"
+        "ProductVersion" = "8:1.0.12"
         "Manufacturer" = "8:Homelidays"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -970,21 +970,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_147A2BE48B4043719F065B73F6964A18"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:microsoft_vc90_crt_x86_x64.msm"
-                "Properties"
-                {
-                }
-            "LanguageId" = "3:0"
-            "Exclude" = "11:TRUE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_77412ABF5FE04CD8B40BE4CBBDCAB8D2"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_11639A2E53394E5CA1BC7E637CEEA03A"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -998,7 +984,21 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_9B45D674D3674AAF9C7CB7CE7BBC0B6C"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_9151A43208A9498A94B452270DE049C8"
+            {
+            "UseDynamicProperties" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "SourcePath" = "8:policy_9_0_Microsoft_VC90_ATL_x86_x64.msm"
+                "Properties"
+                {
+                }
+            "LanguageId" = "3:0"
+            "Exclude" = "11:FALSE"
+            "Folder" = "8:"
+            "Feature" = "8:"
+            "IsolateTo" = "8:"
+            }
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_A547BF87DBAA4753B0A35AC8D9748C72"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -1012,16 +1012,16 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_DCCEA5BAF89F4B96A5162D99F8B3D389"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_F52E83535DAB4A4288B3654C679EFBFC"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:policy_9_0_Microsoft_VC90_ATL_x86_x64.msm"
+            "SourcePath" = "8:microsoft_vc90_crt_x86_x64.msm"
                 "Properties"
                 {
                 }
             "LanguageId" = "3:0"
-            "Exclude" = "11:FALSE"
+            "Exclude" = "11:TRUE"
             "Folder" = "8:"
             "Feature" = "8:"
             "IsolateTo" = "8:"
