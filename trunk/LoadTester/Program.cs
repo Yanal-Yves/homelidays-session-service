@@ -75,13 +75,13 @@ namespace LoadTester
             int thread_number = (int)threadNumber;
             for (;;)
             {
-                string url = "http://sessionservice.my.homelidays.com/SessionService/Test.asp";
+                string url = "http://localhost/SessionService/Test.asp";
                 RequestUrl(url, true, false, thread_number);
                 url += "?Error=1";
                 RequestUrl(url, false, false, thread_number);
-                url = "http://sessionservice.my.homelidays.com/SessionService/TestNoSessionAccess.asp";
+                url = "http://localhost/SessionService/TestNoSessionAccess.asp";
                 RequestUrl(url, true, false, thread_number);
-                url = "http://sessionservice.my.homelidays.com/SessionService/TestReload.asp";
+                url = "http://localhost/SessionService/TestReload.asp";
                 RequestUrl(url, true, false, thread_number);
                 Interlocked.Add(ref nbRequest, 1);
             }
@@ -108,7 +108,7 @@ namespace LoadTester
             int thread_number = (int)threadNumber;
             for (;;)
             {
-                string url = "http://sessionservice2.my.homelidays.com/SessionService/TestIisSession.asp";
+                string url = "http://localhost/SessionService/TestIisSession.asp";
                 RequestUrl(url, true, false, thread_number);
                 url += "?Error=1";
                 RequestUrl(url, false, false, thread_number);
@@ -125,7 +125,7 @@ namespace LoadTester
             int thread_number = (int)threadNumber;
             for (;;)
             {
-                string url = "http://sessionservice.my.homelidays.com/SessionService/TestScriptingDictionary.asp";
+                string url = "http://localhost/SessionService/TestScriptingDictionary.asp";
                 RequestUrl(url, true, false, thread_number);
                 Interlocked.Add(ref nbRequest, 1);
             }

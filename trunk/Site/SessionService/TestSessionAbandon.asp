@@ -31,6 +31,8 @@
 		AspSessionService.Contents("tata") = "toto"
 		call WriteTestLog(AspSessionService.SessionID)
 		WriteEndTestSection()
+
+		Response.Write("<br /><b>Fin du Test</b>")
 	 %>
 </body>
 </html>

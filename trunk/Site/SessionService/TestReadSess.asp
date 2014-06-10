@@ -63,6 +63,8 @@
 		  WriteTestLog(VarType(AspSessionService.Contents(i)))
 		Next 
 		WriteEndTestSection()
+
+		Response.Write("<br /><b>Fin du Test</b>")
 	%>
 </body>
 </html>

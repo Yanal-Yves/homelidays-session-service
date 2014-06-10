@@ -85,7 +85,9 @@
 		AspSessionService("PcoKeys") = Pco.Keys
 		AspSessionService("PcoValues") = Pco.Items
 		call WriteTestLog("AspSessionService(""PcoValues"")(0) : " & AspSessionService("PcoValues")(0))
+		WriteEndTestSection()
 
+		Response.Write("<br /><b>Fin du Test</b>")
 	%>
 </body>
 </html>
