@@ -453,9 +453,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Session Service"
+        "ProductName" = "8:Session Service x86"
         "ProductCode" = "8:{979DF6F0-74D8-45DF-A1BF-1A1A4C6FC4B9}"
-        "PackageCode" = "8:{E39D7FA6-FDDF-4565-A354-65090A6F84AA}"
+        "PackageCode" = "8:{7BBB6E1A-3831-4062-AEB5-02C0B6B79E61}"
         "UpgradeCode" = "8:{F652AF9F-D382-4DCA-953C-20B95A149FFA}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
