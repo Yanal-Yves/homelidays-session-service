@@ -1,1 +1,0 @@
-Le dossier bin est le résultat de l'exectuion de l'instaleur msi.
