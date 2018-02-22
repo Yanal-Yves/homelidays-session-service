@@ -1,4 +1,4 @@
-**I wrote the "Homelidays Session Service" with my fellow collegues when I was working for Homeaway. This code has been initally hosted at codeplex.com. Then it has been moved to Homeaway/homelidays-session-service from where I have cloned it before Homeaway decided to drop it. I am leaving the code here for posterity :-)**
+**I wrote the "Homelidays Session Service" with my fellow collegues when I was working for Homeaway. This code has been initally hosted at Codeplex. [The codeplex archive can still be downloaded](https://archive.codeplex.com/?p=sessionservice). When Codeplex was decommissioned, I moved the code to https://www.github.com/Homeaway/homelidays-session-service from where I have cloned it before Homeaway decided to simply drop it without notice. I am leaving the code here for posterity :-)**
 
 **Homelidays Session Service has been successfully used on production environment from November 2010 to May 2014 at [http://www.homelidays.com](http://www.homelidays.com/ "Homelidays") on high traffic pages. (up to 40 000 active sessions if I remember correctly).**
 
